@@ -1,0 +1,14 @@
+.icon {
+  animation: 0.2s alternate rotate;
+}
+
+@keyframes rotate {
+  from {
+    rotate: 90deg;
+  }
+
+  to {
+    rotate: 0deg;
+  }
+}
+
