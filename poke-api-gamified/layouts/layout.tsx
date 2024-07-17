@@ -4,7 +4,7 @@ export default function LayoutComponent({ children }: { children: React.ReactNod
   return (
     <main className='min-h-screen max-h-screen w-full bg-slate-200'>
       <HeaderComponent />
-      <section className='w-full h-[calc(100vh-80px)] bg-blue-100'>
+      <section className='w-full h-[calc(100vh-80px)] bg-blue-100 p-10'>
         {children}
       </section>
     </main>
