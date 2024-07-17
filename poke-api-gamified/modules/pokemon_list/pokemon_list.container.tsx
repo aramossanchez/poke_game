@@ -3,6 +3,7 @@
 import LayoutComponent from "@/layouts/layout";
 import usePokemonListComponent from "./pokemon_list.hook";
 import LoaderPokeballComponent from "@/components/loader/loader";
+import PokemonCardComponent from "@/components/pokemon_card/pokemon_card";
 
 export default function PokemonListContainer() {
 
@@ -16,10 +17,10 @@ export default function PokemonListContainer() {
         ?
         <LoaderPokeballComponent />
         :
-        <div className='flex flex-row justify-start items-center flex-wrap gap-x-3'>
+        <div className='flex flex-row justify-start items-center flex-wrap gap-x-6 gap-y-10'>
           {pokemonList?.map((pokemon: string) => {
             return (
-              <span key={pokemon}>{pokemon}</span>
+              <PokemonCardComponent key={pokemon} pokemon={pokemon} />
             );
           })}
         </div>
