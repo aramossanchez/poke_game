@@ -1,5 +1,6 @@
 .icon {
   animation: 0.2s alternate rotate;
+  color: white;
 }
 
 @keyframes rotate {
