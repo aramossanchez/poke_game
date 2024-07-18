@@ -22,7 +22,7 @@ export default function PokemonListContainer() {
         <div className='flex flex-row justify-start items-center flex-wrap gap-x-6 gap-y-10'>
           {pokemonList?.map((pokemon: PokemonFullDataType) => {
             return (
-              <PokemonCardComponent key={pokemon.name} number={pokemon.id} pokemon={pokemon.name} image={pokemon.sprites.front_default} types={pokemon.types} />
+              <PokemonCardComponent key={pokemon.name} number={pokemon.id} pokemon={pokemon.name} image={pokemon.sprites.other['official-artwork'].front_default} types={pokemon.types} />
             );
           })}
         </div>
