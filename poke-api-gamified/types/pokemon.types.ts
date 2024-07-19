@@ -6,6 +6,8 @@ export type PokemonBasicInfoType = {
 export type PokemonFullDataType = {
   id: string,
   name: string,
+  height: string,
+  weight: string,
   sprites: {
     front_default: string,
     other: {
@@ -38,5 +40,7 @@ export type PokemonFullDataType = {
 }
 
 export type PokemonSpecieInfoType = {
+  habitat: {name: string},
+  egg_groups: {name: string}[],
   flavor_text_entries: { flavor_text: string }[]
 }

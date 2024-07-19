@@ -8,6 +8,10 @@ export default function usePokemonDetailComponent(pokemon_id: string) {
   const [specieData, setSpecieData] = useState<PokemonSpecieInfoType |null>(null);
   const [counter, setCounter] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [spriteNormalVersion, setSpriteNormalVersion] = useState<string[]>([]);
+  const [counterSpriteNormalVersion, setCounterSpriteNormalVersion] = useState(1);
+  const [spriteShinyVersion, setSpriteShinyVersion] = useState<string[]>([]);
+  const [counterSpriteShinyVersion, setCounterSpriteShinyVersion] = useState(1);
 
   useEffect(() => {
     getPokemonData(pokemon_id);
@@ -19,6 +23,16 @@ export default function usePokemonDetailComponent(pokemon_id: string) {
       const pokemon = await getPokemonDataById(id);
       const specie = await getPokemonSpecieByUrl(pokemon.species.url);
       setPokemonData(pokemon);
+      setSpriteNormalVersion([
+        pokemon?.sprites.versions['generation-ii'].crystal.front_transparent,
+        pokemon?.sprites.versions['generation-v']['black-white'].animated.front_default,
+        pokemon?.sprites.other.showdown.front_default
+      ])
+      setSpriteShinyVersion([
+        pokemon?.sprites.versions['generation-ii'].crystal.front_shiny_transparent,
+        pokemon?.sprites.versions['generation-v']['black-white'].animated.front_shiny,
+        pokemon?.sprites.other.showdown.front_shiny
+      ])
       setSpecieData(specie);
     } catch (error) {
       console.log(error);
@@ -31,6 +45,12 @@ export default function usePokemonDetailComponent(pokemon_id: string) {
     pokemonData,
     specieData,
     setCounter,
-    counter
+    counter,
+    spriteNormalVersion,
+    setCounterSpriteNormalVersion,
+    counterSpriteNormalVersion,
+    spriteShinyVersion,
+    setCounterSpriteShinyVersion,
+    counterSpriteShinyVersion
   }
 }
