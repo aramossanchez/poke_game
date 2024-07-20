@@ -1,4 +1,4 @@
-export const translateTypeToPrimaryColor = (type: string) => {
+export const translateTypeToPrimaryColor = (type = '') => {
   switch (type) {
     case 'fire':
       return '#fa9866'
@@ -39,7 +39,7 @@ export const translateTypeToPrimaryColor = (type: string) => {
   }
 }
 
-export const translateTypeToSecondaryColor = (type: string) => {
+export const translateTypeToSecondaryColor = (type = '') => {
   switch (type) {
     case 'fire':
       return '#ff5b00'

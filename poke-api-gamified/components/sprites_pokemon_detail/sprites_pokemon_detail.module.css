@@ -1,0 +1,13 @@
+.image {
+  animation: image-movement 0.2s linear 0s;
+}
+
+@keyframes image-movement {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 100;
+  }
+}

@@ -20,7 +20,6 @@ export default function usePokemonListComponent () {
         arrayOfPokemonFullData.push(pokemonData);        
       }
       setPokemonList(arrayOfPokemonFullData);
-      console.log(arrayOfPokemonFullData);
     } catch (error) {
       console.error(error);
     } finally {

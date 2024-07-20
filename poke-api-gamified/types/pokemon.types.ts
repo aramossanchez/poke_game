@@ -16,8 +16,12 @@ export type PokemonFullDataType = {
       },
       dream_world: {
         front_default: string
+      },
+      showdown: {
+        front_default: string,
+        front_shiny: string
       }
-    }
+    },
     versions :{
       'generation-v': {
         'black-white': {
@@ -25,6 +29,12 @@ export type PokemonFullDataType = {
             front_default: string,
             front_shiny: string,
           }
+        }
+      },
+      'generation-ii': {
+        crystal: {
+          front_transparent: string,
+          front_shiny_transparent: string
         }
       }
     }

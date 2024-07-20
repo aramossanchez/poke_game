@@ -6,7 +6,7 @@ import LoaderPokeballComponent from "@/components/loader/loader";
 import Image from "next/image";
 import TypeIconComponent from "@/components/type_icon.component";
 import { translateTypeToPrimaryColor, translateTypeToSecondaryColor } from "@/services/translator.service";
-import { IconArrowBadgeLeftFilled, IconArrowBadgeRightFilled } from "@tabler/icons-react";
+import SpritesPokemonDetailComponent from "@/components/sprites_pokemon_detail/sprites_pokemon_detail.component";
 
 export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: string }) {
 
@@ -51,14 +51,14 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
                 })}
               </div>
               <div
-                className='flex flex-row items-center gap-2 mb-1 rounded-md px-2 py-1'
+                className='flex flex-row items-center gap-1 mb-1 rounded-md px-2 py-1'
                 style={{ backgroundColor: translateTypeToSecondaryColor(type1) }}
               >
                 <span>Egg groups:</span>
                 <div className='flex flex-row gap-1'>
                   {specieData?.egg_groups.map((egg, index) => {
                     return (
-                      <span key={egg.name + '-egg_group'}>{index === 1 ? 'and ' : ''}{egg.name}</span>
+                      <span key={egg.name + '-egg_group'}>{index === 1 ? 'and ' : ''}{egg.name.replaceAll('-', ' ')}</span>
                     )
                   })}
                 </div>
@@ -85,52 +85,20 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               <span className='w-full text-center'>Weight: {pokemonData?.weight}</span>
             </article>
             <article className='w-[33%] flex flex-col justify-center items-end gap-10'>
-              <div className='flex flex-row items-center'>
-                <IconArrowBadgeLeftFilled
-                  size={40}
-                  color={translateTypeToSecondaryColor(type1)}
-                  className='cursor-pointer'
-                  onClick={() => setCounterSpriteNormalVersion(counterSpriteNormalVersion - 1)}
-                />
-                <div className='flex flex-col gap-4 items-center'>
-                  <Image
-                    src={spriteNormalVersion[counterSpriteNormalVersion]}
-                    alt='Pokemon sprite normal'
-                    width={200}
-                    height={200}
-                  />
-                  <span className='text-xl font-semibold'>Normal version</span>
-                </div>
-                <IconArrowBadgeRightFilled
-                  size={40}
-                  color={translateTypeToSecondaryColor(type1)}
-                  className='cursor-pointer'
-                  onClick={() => setCounterSpriteNormalVersion(counterSpriteNormalVersion + 1)}
-                />
-              </div>
-              <div className='flex flex-row items-center'>
-                <IconArrowBadgeLeftFilled
-                  size={40}
-                  color={translateTypeToSecondaryColor(type1)}
-                  className='cursor-pointer'
-                  onClick={() => setCounterSpriteShinyVersion(counterSpriteShinyVersion - 1)}
-                />
-                <div className='flex flex-col gap-4 items-center'>
-                  <Image
-                    src={spriteShinyVersion[counterSpriteShinyVersion]}
-                    alt='Pokemon sprite shiny'
-                    width={200}
-                    height={200}
-                  />
-                  <span className='text-xl font-semibold'>Shiny version</span>
-                </div>
-                <IconArrowBadgeRightFilled
-                  size={40}
-                  color={translateTypeToSecondaryColor(type1)}
-                  className='cursor-pointer'
-                  onClick={() => setCounterSpriteShinyVersion(counterSpriteShinyVersion + 1)}
-                />
-              </div>
+              <SpritesPokemonDetailComponent
+                type={type1}
+                counter={counterSpriteNormalVersion}
+                setCounter={setCounterSpriteNormalVersion}
+                array={spriteNormalVersion}
+                label='Normal version'
+              />
+              <SpritesPokemonDetailComponent
+                type={type1}
+                counter={counterSpriteShinyVersion}
+                setCounter={setCounterSpriteShinyVersion}
+                array={spriteShinyVersion}
+                label='Shiny version'
+              />
             </article>
           </section>
           {/* <section>
@@ -198,7 +166,7 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               width={200}
               height={200}
             /> */}
-            {/* <Image
+          {/* <Image
               src={pokemonData?.sprites.other['official-artwork'].front_shiny}
               alt='Pokemon image 9'
               width={200}
@@ -216,7 +184,7 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               width={200}
               height={200}
             /> */}
-            {/* <Image
+          {/* <Image
               src={pokemonData?.sprites.other.showdown.front_default}
               alt='Pokemon image 12'
               width={200}
@@ -228,7 +196,7 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               width={200}
               height={200}
             /> */}
-            {/* <Image
+          {/* <Image
               src={pokemonData?.sprites.versions['generation-i']['red-blue'].back_default}
               alt='Pokemon image 14'
               width={200}
@@ -276,7 +244,7 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               width={200}
               height={200}
             /> */}
-            {/* <Image
+          {/* <Image
               src={pokemonData?.sprites.versions['generation-i'].yellow.back_transparent}
               alt='Pokemon image 14'
               width={200}
@@ -306,7 +274,7 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               width={200}
               height={200}
             /> */}
-            {/* <Image
+          {/* <Image
               src={pokemonData?.sprites.versions['generation-ii'].crystal.back_shiny}
               alt='Pokemon image 14'
               width={200}
@@ -336,7 +304,7 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               width={200}
               height={200}
             /> */}
-            {/* <Image
+          {/* <Image
               src={pokemonData?.sprites.versions['generation-ii'].crystal.front_transparent}
               alt='Pokemon image 14'
               width={200}
@@ -348,7 +316,7 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               width={200}
               height={200}
             /> */}
-            {/* <Image
+          {/* <Image
               src={pokemonData?.sprites.versions['generation-ii'].gold.back_default}
               alt='Pokemon image 14'
               width={200}
