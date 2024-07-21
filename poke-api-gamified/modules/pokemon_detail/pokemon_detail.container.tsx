@@ -20,6 +20,8 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
     pokemonData,
     specieData,
     typesData,
+    abilitiesData,
+    movementsData,
     spriteNormalVersion,
     setCounterSpriteNormalVersion,
     counterSpriteNormalVersion,
@@ -131,6 +133,24 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
           {/* STATS SECTION */}
           <section className='w-full flex flex-col items-center'>
             <SectionTitleComponent type={type1} label='Stats' />
+            <div className='w-full flex flex-col items-start justify-start px-10 gap-5'>
+              <div
+                className='flex flex-row items-end gap-2'
+                style={{ color: translateTypeToSecondaryColor(type1) }}
+              >
+                <IconHeartFilled size={30} color={translateTypeToSecondaryColor(type1)} />
+                <span className='font-semibold text-[20px]'>Health Points (HP):</span>
+                <span className='text-black text-[18px]'> It is a value that determines how much damage a Pokémon can receive. When a Pokémon´s HP is completely down to 0, the Pokémon will faint.</span>
+              </div>
+              <div
+                className='flex flex-row items-end gap-2'
+                style={{ color: translateTypeToSecondaryColor(type1) }}
+              >
+                <IconSword size={30} color={translateTypeToSecondaryColor(type1)} />
+                <span className='font-semibold text-[20px]'>Attack (A):</span>
+                <span className='text-black text-[18px]'> Determines how much damage a Pokémon will resist when hit by a physical move.</span>
+              </div>
+            </div>
             <article className='w-[990px]'>
               <div
                 className='flex flex-row items-end justify-between border-l-2 px-8 h-[300px]'
@@ -161,9 +181,9 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               </div>
             </article>
           </section>
-          {/* WEAKNESSES SECTION */}
+          {/* RESISTORS SECTION */}
           <section className='w-full'>
-            <SectionTitleComponent type={type1} label='Weaknesses' />
+            <SectionTitleComponent type={type1} label='Resistors' />
             <div className='flex flex-row items-start justify-start mt-24 gap-10 flex-wrap w-full'>
               <div className='min-[1440px]:w-[33%] flex flex-row justify-start'>
                 <TypeDamageComponent
@@ -188,13 +208,109 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               </div>
             </div>
           </section>
-          {/* ABILITIES SECTION */}
-          <section className='w-full flex flex-col items-center'>
-            <SectionTitleComponent type={type1} label='Abilities' />
-          </section>
-          {/* MOVEMENTS SECTION */}
-          <section className='w-full flex flex-col items-center'>
-            <SectionTitleComponent type={type1} label='Movements' />
+          {/* SKILLS SECTION */}
+          <section className='w-full flex flex-col items-center gap-10'>
+            <SectionTitleComponent type={type1} label='Skills' />
+            <div className='w-full flex flex-row items-center justify-start px-16'>
+              <span
+                className='text-[25px] font-semibold border-l-2 border-b-2 p-2'
+                style={{ color: translateTypeToSecondaryColor(type1), borderColor: translateTypeToSecondaryColor(type1) }}
+              >
+                Abilities
+              </span>
+            </div>
+            <div className='w-full flex flex-col gap-10 px-20'>
+              {abilitiesData?.map((ability) => {
+                return (
+                  <div className='flex flex-col items-start gap-2' key={ability.name}>
+                    <div
+                      className='bg-black border-2 text-[20px] font-semibold px-2 py-1 rounded-md flex flex-row items-center gap-1'
+                      style={{ borderColor: translateTypeToSecondaryColor(type1), color: translateTypeToPrimaryColor(type1) }}
+                    >
+                      <TypeIconComponent type={type1 || ''} />
+                      <span>{ability.name.toLocaleUpperCase()}</span>
+                    </div>
+                    <span className='text-[20px]'>{ability.effect_entries[1].effect}</span>
+                  </div>
+                )
+              })}
+            </div>
+            <div className='w-full flex flex-row items-center justify-start px-16 mt-20'>
+              <span
+                className='text-[25px] font-semibold border-l-2 border-b-2 p-2'
+                style={{ color: translateTypeToSecondaryColor(type1), borderColor: translateTypeToSecondaryColor(type1) }}
+              >
+                Movements
+              </span>
+            </div>
+            <div className='w-full flex flex-col gap-10 px-20'>
+              <table className='w-full'>
+                <thead className='text-center border-b-2' style={{ color: translateTypeToSecondaryColor(type1), borderColor: translateTypeToSecondaryColor(type1) }}>
+                  <th className='p-3'>Name</th>
+                  <th className='p-3'>Type</th>
+                  <th className='p-3 min-w-[120px]'>Learned at</th>
+                  <th className='p-3 min-w-[150px]'>Damage class</th>
+                  <th className='p-3'>Accuracy</th>
+                  <th className='p-3'>Details</th>
+                </thead>
+                {movementsData?.map((move) => {
+                  return (
+                    <tr
+                      key={move.name}
+                      className='border-b-[1px] hover:text-yellow-400 hover:bg-black text-center'
+                      style={{ borderColor: translateTypeToSecondaryColor(type1) }}
+                    >
+                      <td className='px-1 font-semibold min-w-[160px]'>
+                        {move.name.replaceAll('-', ' ').toLocaleUpperCase()}
+                      </td>
+                      <td className='flex flex-row items-center justify-center px-1 py-3'>
+                        <div
+                          className='bg-black border-2 font-semibold px-2 py-1 rounded-md flex flex-row items-center gap-1'
+                          style={{ borderColor: translateTypeToSecondaryColor(move?.type?.name), color: translateTypeToPrimaryColor(move?.type?.name) }}
+                        >
+                          <TypeIconComponent type={move?.type?.name || ''} />
+                          <span>{move?.type?.name.toLocaleUpperCase()}</span>
+                        </div>
+                      </td>
+                      <td className='px-1'>
+                        Level {move.level_learned_at}
+                      </td>
+                      <td className='px-1'>
+                        {move.damage_class.name.toLocaleUpperCase()}
+                      </td>
+                      <td className='px-1'>
+                        {move?.accuracy || '---'}
+                      </td>
+                      <td className='px-1'>
+                        {move?.flavor_text_entries?.find((text) => text?.language?.name === 'en')?.flavor_text.replaceAll('SPCL.DEF', 'special defense').replaceAll('SPEED', 'speed').replaceAll('ATTACK', 'attack').replaceAll('Sp. Atk', 'special attack').replaceAll('DEFENSE', 'defense')}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </table>
+              {/* {movementsData?.map((move) => {
+                return (
+                  <div className='flex flex-col items-start gap-2 border-b-2 border-black pb-10' key={move.name}
+                    style={{ borderColor: translateTypeToSecondaryColor(type1) }}
+                  >
+                    <div className='flex flex-col gap-2'>
+                      <span className='font-medium'>Learned in level {move.level_learned_at}</span>
+                      <div
+                        className='bg-black border-2 text-[20px] font-semibold px-2 py-1 rounded-md flex flex-row items-center gap-1'
+                        style={{ borderColor: translateTypeToSecondaryColor(move?.type?.name), color: translateTypeToPrimaryColor(move?.type?.name) }}
+                      >
+                        <TypeIconComponent type={move?.type?.name || ''} />
+                        <span>{move.name.replaceAll('-', ' ').toLocaleUpperCase()}</span>
+                      </div>
+                    </div>
+                    <span className='font-semibold'>Damage class: {move.damage_class.name}</span>
+                    <span className='text-[20px]'>
+                      {move?.flavor_text_entries?.find((text) => text?.language?.name === 'en')?.flavor_text.replaceAll('SPCL.DEF', 'special defense').replaceAll('SPEED', 'speed').replaceAll('ATTACK', 'attack').replaceAll('Sp. Atk', 'special attack').replaceAll('DEFENSE', 'defense')}
+                    </span>
+                  </div>
+                )
+              })} */}
+            </div>
           </section>
           {/* <section>
             <div className='w-full flex flex-row justify-between items-start'>
