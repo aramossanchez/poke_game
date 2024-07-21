@@ -5,7 +5,7 @@ export const translateTypeToPrimaryColor = (type = '') => {
     case 'grass':
       return '#b5f090'
     case 'poison':
-      return '#704a91'
+      return '#c5e8d2'
     case 'flying':
       return '#e8d9ca'
     case 'water':
@@ -34,6 +34,8 @@ export const translateTypeToPrimaryColor = (type = '') => {
       return '#9b8ca8'
     case 'dragon':
       return '#54ebc0'
+    case 'dark':
+      return '#b1b3b5'
     default:
       break;
   }
@@ -46,7 +48,7 @@ export const translateTypeToSecondaryColor = (type = '') => {
     case 'grass':
       return '#00ad28'
     case 'poison':
-      return '#f5e0ff'
+      return '#616161'
     case 'flying':
       return '#'
     case 'water':
@@ -68,13 +70,15 @@ export const translateTypeToSecondaryColor = (type = '') => {
     case 'rock':
       return '#835000'
     case 'steel':
-      return '#'
+      return '#444444'
     case 'ice':
       return '#6fa8dc'
     case 'ghost':
       return '#5f4969'
     case 'dragon':
       return '#4271ff'
+    case 'dark':
+      return '#ffffff'
     default:
       break;
   }

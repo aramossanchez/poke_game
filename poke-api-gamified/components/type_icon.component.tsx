@@ -1,4 +1,4 @@
-import { IconBackground, IconBolt, IconBrandGitlab, IconBugFilled, IconDropletFilled, IconDroplets, IconFeather, IconFlame, IconGhostFilled, IconHandGrab, IconLeaf, IconMoonFilled, IconMountain, IconSettingsFilled, IconSnowflake, IconWifi, IconWindmillFilled } from "@tabler/icons-react";
+import { IconBackground, IconBolt, IconBrandGitlab, IconBugFilled, IconDropletFilled, IconDroplets, IconFeather, IconFlame, IconGhostFilled, IconHandGrab, IconLeaf, IconMoonFilled, IconMountain, IconSettingsFilled, IconSnowflake, IconStarFilled, IconWifi, IconWindmillFilled } from "@tabler/icons-react";
 
 export default function TypeIconComponent ({ type }: {type: string}) {
   switch (type) {
@@ -21,7 +21,7 @@ export default function TypeIconComponent ({ type }: {type: string}) {
     case 'ground':
       return <IconBackground />
     case 'fairy':
-      return <IconMoonFilled />
+      return <IconStarFilled />
     case 'fighting':
       return <IconHandGrab />
     case 'psychic':
@@ -36,6 +36,8 @@ export default function TypeIconComponent ({ type }: {type: string}) {
       return <IconGhostFilled />
     case 'dragon':
       return <IconWindmillFilled />
+    case 'dark':
+      return <IconMoonFilled />
   
     default:
       break;
