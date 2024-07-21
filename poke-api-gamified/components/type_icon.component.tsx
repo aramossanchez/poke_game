@@ -1,4 +1,4 @@
-import { IconBackground, IconBrandGitlab, IconBrandTorchain, IconBugFilled, IconDropletFilled, IconDroplets, IconFeather, IconFlame, IconGhostFilled, IconHandGrab, IconLeaf, IconMoonFilled, IconMountain, IconSettingsFilled, IconSnowflake, IconWifi, IconWindmillFilled } from "@tabler/icons-react";
+import { IconBackground, IconBolt, IconBrandGitlab, IconBugFilled, IconDropletFilled, IconDroplets, IconFeather, IconFlame, IconGhostFilled, IconHandGrab, IconLeaf, IconMoonFilled, IconMountain, IconSettingsFilled, IconSnowflake, IconWifi, IconWindmillFilled } from "@tabler/icons-react";
 
 export default function TypeIconComponent ({ type }: {type: string}) {
   switch (type) {
@@ -17,7 +17,7 @@ export default function TypeIconComponent ({ type }: {type: string}) {
     case 'normal':
       return <IconBrandGitlab />
     case 'electric':
-      return <IconBrandTorchain />
+      return <IconBolt />
     case 'ground':
       return <IconBackground />
     case 'fairy':

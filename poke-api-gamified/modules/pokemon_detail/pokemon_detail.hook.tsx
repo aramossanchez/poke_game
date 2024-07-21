@@ -1,11 +1,12 @@
-import { getPokemonDataById, getPokemonSpecieByUrl } from "@/services/pokemon.service"
-import { PokemonFullDataType, PokemonSpecieInfoType } from "@/types/pokemon.types";
+import { getPokemonDataById, getPokemonSpecieByUrl, getTypeDataByUrl } from "@/services/pokemon.service"
+import { PokemonFullDataType, PokemonSpecieInfoType, PokemonTypeInfoType } from "@/types/pokemon.types";
 import { useEffect, useState } from "react";
 
 export default function usePokemonDetailComponent(pokemon_id: string) {
 
   const [pokemonData, setPokemonData] = useState<PokemonFullDataType | null>(null);
   const [specieData, setSpecieData] = useState<PokemonSpecieInfoType |null>(null);
+  const [typesData, setTypesData] = useState<PokemonTypeInfoType[] | null>(null);
   const [counter, setCounter] = useState(0);
   const [loading, setLoading] = useState(true);
   const [spriteNormalVersion, setSpriteNormalVersion] = useState<string[]>([]);
@@ -20,8 +21,15 @@ export default function usePokemonDetailComponent(pokemon_id: string) {
 
   const getPokemonData = async (id: string) => {
     try {
+      // GET
       const pokemon = await getPokemonDataById(id);
       const specie = await getPokemonSpecieByUrl(pokemon.species.url);
+      const arrayWithTypesData = [];
+      for (const type of pokemon.types) {
+        const typeData = await getTypeDataByUrl(type.type.url);
+        arrayWithTypesData.push(typeData);
+      }
+      // SET
       setPokemonData(pokemon);
       setSpriteNormalVersion([
         pokemon?.sprites.versions['generation-ii'].crystal.front_transparent,
@@ -34,6 +42,7 @@ export default function usePokemonDetailComponent(pokemon_id: string) {
         pokemon?.sprites.other.showdown.front_shiny
       ])
       setSpecieData(specie);
+      setTypesData(arrayWithTypesData);
     } catch (error) {
       console.log(error);
     } finally {
@@ -44,6 +53,7 @@ export default function usePokemonDetailComponent(pokemon_id: string) {
     loading,
     pokemonData,
     specieData,
+    typesData,
     setCounter,
     counter,
     spriteNormalVersion,

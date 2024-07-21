@@ -1,0 +1,13 @@
+.stat_bar {
+  animation: bar-movement 1s ease-in-out 0s;
+}
+
+@keyframes bar-movement {
+  from {
+    padding-bottom: 0;
+  }
+
+  to {
+    padding-bottom: auto;
+  }
+}

@@ -8,6 +8,7 @@ export type PokemonFullDataType = {
   name: string,
   height: string,
   weight: string,
+  stats: {base_stat: string}[]
   sprites: {
     front_default: string,
     other: {
@@ -44,7 +45,8 @@ export type PokemonFullDataType = {
   }
   types: {
     type: {
-      name: string
+      name: string,
+      url: string
     }
   }[]
 }
@@ -53,4 +55,16 @@ export type PokemonSpecieInfoType = {
   habitat: {name: string},
   egg_groups: {name: string}[],
   flavor_text_entries: { flavor_text: string }[]
+}
+
+export type PokemonTypeInfoType = {
+  name: string,
+  damage_relations :{
+    double_damage_from: {name: string}[]
+    double_damage_to: {name: string}[]
+    half_damage_from: {name: string}[]
+    half_damage_to: {name: string}[]
+    no_damage_from: {name: string}[]
+    no_damage_to: {name: string}[]
+  }
 }

@@ -42,9 +42,9 @@ export const translateTypeToPrimaryColor = (type = '') => {
 export const translateTypeToSecondaryColor = (type = '') => {
   switch (type) {
     case 'fire':
-      return '#ff5b00'
+      return '#e60e02'
     case 'grass':
-      return '#b1ff00'
+      return '#00ad28'
     case 'poison':
       return '#f5e0ff'
     case 'flying':
@@ -56,7 +56,7 @@ export const translateTypeToSecondaryColor = (type = '') => {
     case 'normal':
       return '#999999'
     case 'electric':
-      return '#ffd966'
+      return '#e64602'
     case 'ground':
       return '#ffe599'
     case 'fairy':
@@ -74,8 +74,18 @@ export const translateTypeToSecondaryColor = (type = '') => {
     case 'ghost':
       return '#5f4969'
     case 'dragon':
-      return '#a8cffc'
+      return '#4271ff'
     default:
       break;
   }
+}
+
+export const convertWeight = (weight = '0') => {
+  let newWeight = Number(weight);
+  return (newWeight / 10).toFixed(1);
+}
+
+export const convertHeight = (height = '0') => {
+  let newHeight = Number(height);
+  return (newHeight / 10).toFixed(1);
 }
