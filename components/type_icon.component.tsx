@@ -1,43 +1,43 @@
 import { IconBackground, IconBolt, IconBrandGitlab, IconBugFilled, IconDropletFilled, IconDroplets, IconFeather, IconFlame, IconGhostFilled, IconHandGrab, IconLeaf, IconMoonFilled, IconMountain, IconSettingsFilled, IconSnowflake, IconStarFilled, IconWifi, IconWindmillFilled } from "@tabler/icons-react";
 
-export default function TypeIconComponent ({ type }: {type: string}) {
+export default function TypeIconComponent ({ type = '', size = 25 }) {
   switch (type) {
     case 'grass':
-      return <IconLeaf />
+      return <IconLeaf size={size} />
     case 'poison':
-      return <IconDropletFilled />
+      return <IconDropletFilled size={size} />
     case 'fire':
-      return <IconFlame />
+      return <IconFlame size={size} />
     case 'flying':
-      return <IconFeather />
+      return <IconFeather size={size} />
     case 'water':
-      return <IconDroplets />
+      return <IconDroplets size={size} />
     case 'bug':
-      return <IconBugFilled />
+      return <IconBugFilled size={size} />
     case 'normal':
-      return <IconBrandGitlab />
+      return <IconBrandGitlab size={size} />
     case 'electric':
-      return <IconBolt />
+      return <IconBolt size={size} />
     case 'ground':
-      return <IconBackground />
+      return <IconBackground size={size} />
     case 'fairy':
-      return <IconStarFilled />
+      return <IconStarFilled size={size} />
     case 'fighting':
-      return <IconHandGrab />
+      return <IconHandGrab size={size} />
     case 'psychic':
-      return <IconWifi />
+      return <IconWifi size={size} />
     case 'rock':
-      return <IconMountain />
+      return <IconMountain size={size} />
     case 'steel':
-      return <IconSettingsFilled />
+      return <IconSettingsFilled size={size} />
     case 'ice':
-      return <IconSnowflake />
+      return <IconSnowflake size={size} />
     case 'ghost':
-      return <IconGhostFilled />
+      return <IconGhostFilled size={size} />
     case 'dragon':
-      return <IconWindmillFilled />
+      return <IconWindmillFilled size={size} />
     case 'dark':
-      return <IconMoonFilled />
+      return <IconMoonFilled size={size} />
   
     default:
       break;

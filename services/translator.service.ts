@@ -60,7 +60,7 @@ export const translateTypeToSecondaryColor = (type = '') => {
     case 'electric':
       return '#e64602'
     case 'ground':
-      return '#ffe599'
+      return '#ffffff'
     case 'fairy':
       return '#ff80c3'
     case 'fighting':
@@ -68,7 +68,7 @@ export const translateTypeToSecondaryColor = (type = '') => {
     case 'psychic':
       return '#674ea7'
     case 'rock':
-      return '#835000'
+      return '#ffffff'
     case 'steel':
       return '#444444'
     case 'ice':

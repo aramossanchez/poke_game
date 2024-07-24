@@ -10,9 +10,9 @@ import SpritesPokemonDetailComponent from "@/components/sprites_pokemon_detail/s
 import { IconArrowBigLeftFilled, IconArrowBigRightFilled, IconBrandTorchain, IconHeartFilled, IconShieldCheckeredFilled, IconShieldHalfFilled, IconSword, IconSwords } from "@tabler/icons-react";
 import style from './pokemon_detail.module.css';
 import Link from "next/link";
-import TypeDamageComponent from "@/components/type_damage.component";
 import SectionTitleComponent from "@/components/section_title.component";
 import StatisticsExplanationComponent from "@/components/statistics_explanation.component";
+import TypeTagComponent from "@/components/type_tag.component";
 
 export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: string }) {
 
@@ -20,20 +20,23 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
     loading,
     pokemonData,
     specieData,
-    typesData,
     abilitiesData,
     movementsData,
+    damagesReceivedByType,
     spriteNormalVersion,
     setCounterSpriteNormalVersion,
     counterSpriteNormalVersion,
     spriteShinyVersion,
     setCounterSpriteShinyVersion,
-    counterSpriteShinyVersion
+    counterSpriteShinyVersion,
+    useScreenWidth
   } = usePokemonDetailComponent(pokemon_id);
 
   const typesName: string[] | undefined = pokemonData?.types.map((type) => type.type.name);
   const type1 = typesName?.[0];
   const type2 = typesName?.[1];
+
+  const isScreenSmall = useScreenWidth();
 
   return (
     <LayoutComponent>
@@ -131,9 +134,9 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               />
             </article>
           </section>
-          {/* STATS SECTION */}
+          {/* COMBAT DATA SECTION */}
           <section className='w-full flex flex-col items-center'>
-            <SectionTitleComponent type={type1} label='Stats' />
+            <SectionTitleComponent type={type1} label='Combat data' />
             <article className='w-[990px]'>
               <div
                 className='flex flex-row items-end justify-between border-l-2 px-8 h-[500px]'
@@ -207,31 +210,24 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               />
             </article>
           </section>
-          {/* RESISTORS SECTION */}
-          <section className='w-full'>
-            <SectionTitleComponent type={type1} label='Resistors' />
-            <div className='flex flex-row items-start justify-start mt-24 gap-10 flex-wrap w-full'>
-              <div className='min-[1440px]:w-[33%] flex flex-row justify-start'>
-                <TypeDamageComponent
-                  typesData={typesData}
-                  damage='double_damage_from'
-                  label=' takes double damage vs'
-                />
-              </div>
-              <div className='min-[1440px]:w-[33%] flex flex-row justify-start'>
-                <TypeDamageComponent
-                  typesData={typesData}
-                  damage='half_damage_from'
-                  label=' takes half damage vs'
-                />
-              </div>
-              <div className='flex flex-row justify-start'>
-                <TypeDamageComponent
-                  typesData={typesData}
-                  damage='no_damage_from'
-                  label=' takes 0 damage vs'
-                />
-              </div>
+          {/* DAMAGE RECEIVED SECTION */}
+          <section className='w-full flex flex-col justify-center items-center'>
+            <SectionTitleComponent type={type1} label='Damages received' />
+            <div className='grid grid-cols-3 gap-y-8 gap-x-10 mt-20 w-[850px]'>
+              {Object.keys(damagesReceivedByType as { [key: string]: number })?.map((key) => {
+                return (
+                  <div key={key} className='flex flex-row justify-start items-center gap-3 '>
+                    <div
+                      className='flex flex-row items-center justify-center bg-black px-2 py-1 rounded-md'
+                      style={{ color: translateTypeToPrimaryColor(key) }}
+                    >
+                      <TypeTagComponent type={key} />
+                    </div>
+                    <span className='text-3xl font-semibold whitespace-nowrap'>x {damagesReceivedByType?.[key]}</span>
+                  </div>
+
+                )
+              })}
             </div>
           </section>
           {/* SKILLS SECTION */}
@@ -270,50 +266,120 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               </span>
             </div>
             <div className='w-full flex flex-col gap-10 px-20'>
-              <table className='w-full'>
-                <thead className='border-b-2' style={{ color: translateTypeToSecondaryColor(type1), borderColor: translateTypeToSecondaryColor(type1) }}>
-                  <th className='p-3 text-center'>Name</th>
-                  <th className='p-3 text-center'>Type</th>
-                  <th className='p-3 text-center min-w-[120px]'>Learned at</th>
-                  <th className='p-3 text-center min-w-[150px]'>Damage class</th>
-                  <th className='p-3 text-center'>Accuracy</th>
-                  <th className='p-3 text-left'>Details</th>
-                </thead>
-                {movementsData?.map((move, index) => {
-                  return (
-                    <tr
-                      key={move.name}
-                      className={`${(index + 1) === movementsData.length ? 'border-b-0' : 'border-b-[1px]'} hover:text-yellow-400 hover:bg-black text-center`}
-                      style={{ borderColor: translateTypeToSecondaryColor(type1) }}
-                    >
-                      <td className='px-1 font-semibold min-w-[160px]'>
-                        {move.name.replaceAll('-', ' ').toLocaleUpperCase()}
-                      </td>
-                      <td className='px-1 py-3'>
-                        <div
-                          className='bg-black border-2 font-semibold px-2 py-1 rounded-md flex flex-row items-center justify-center gap-1'
-                          style={{ borderColor: translateTypeToPrimaryColor(move?.type?.name), color: translateTypeToPrimaryColor(move?.type?.name) }}
-                        >
-                          <TypeIconComponent type={move?.type?.name || ''} />
-                          <span>{move?.type?.name.toLocaleUpperCase()}</span>
-                        </div>
-                      </td>
-                      <td className='px-1'>
-                        Level {move.level_learned_at}
-                      </td>
-                      <td className='px-1'>
-                        {move.damage_class.name.toLocaleUpperCase()}
-                      </td>
-                      <td className='px-1'>
-                        {move?.accuracy || '---'}
-                      </td>
-                      <td className='px-1 text-left pl-3'>
-                        {move?.flavor_text_entries?.find((text) => text?.language?.name === 'en')?.flavor_text.replaceAll('SPCL.DEF', 'special defense').replaceAll('SPEED', 'speed').replaceAll('ATTACK', 'attack').replaceAll('Sp. Atk', 'special attack').replaceAll('DEFENSE', 'defense')}
-                      </td>
+              {!isScreenSmall ?
+                <table className='w-full'>
+                  <thead>
+                    <tr className='border-b-2' style={{ color: translateTypeToSecondaryColor(type1), borderColor: translateTypeToSecondaryColor(type1) }}>
+                      <th className='p-3 text-center'>Name</th>
+                      <th className='p-3 text-center'>Type</th>
+                      <th className='p-3 text-center min-w-[120px]'>Learned at</th>
+                      <th className='p-3 text-center min-w-[150px]'>Damage class</th>
+                      <th className='p-3 text-center'>Power</th>
+                      <th className='p-3 text-center'>Accuracy</th>
+                      <th className='p-3 text-center min-w-[140px]'>Power points</th>
+                      <th className='p-3 text-left'>Details</th>
                     </tr>
-                  )
-                })}
-              </table>
+                  </thead>
+                  <tbody>
+                    {movementsData?.map((move, index) => {
+                      return (
+                        <tr
+                          key={move.name}
+                          className={`${(index + 1) === movementsData.length ? 'border-b-0' : 'border-b-[1px]'} hover:bg-[#ffffffab] text-center`}
+                          style={{ borderColor: translateTypeToSecondaryColor(type1) }}
+                        >
+                          <td className='px-1 font-semibold min-w-[160px]'>
+                            {move.name.replaceAll('-', ' ').toLocaleUpperCase()}
+                          </td>
+                          <td className='px-1 py-3'>
+                            <div
+                              className='bg-black border-2 font-semibold px-2 py-1 rounded-md flex flex-row items-center justify-center gap-1'
+                              style={{ borderColor: translateTypeToPrimaryColor(move?.type?.name), color: translateTypeToPrimaryColor(move?.type?.name) }}
+                            >
+                              <TypeIconComponent type={move?.type?.name || ''} />
+                              <span>{move?.type?.name.toLocaleUpperCase()}</span>
+                            </div>
+                          </td>
+                          <td className='px-1'>
+                            Level {move.level_learned_at}
+                          </td>
+                          <td className='px-1'>
+                            {move.damage_class.name.toLocaleUpperCase()}
+                          </td>
+                          <td className='px-1'>
+                            {move.power || '---'}
+                          </td>
+                          <td className='px-1'>
+                            {move?.accuracy || '---'}
+                          </td>
+                          <td className='px-1'>
+                            {move?.pp || '---'}
+                          </td>
+                          <td className='px-1 text-left pl-3'>
+                            {move?.flavor_text_entries?.find((text) => text?.language?.name === 'en')?.flavor_text.replaceAll('SPCL.DEF', 'special defense').replaceAll('SPEED', 'speed').replaceAll('ATTACK', 'attack').replaceAll('Sp. Atk', 'special attack').replaceAll('DEFENSE', 'defense')}
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+                :
+                <div className='w-full flex flex-col items-start justify-start gap-8'>
+                  {movementsData?.map((move) => {
+                    return (
+                      <div
+                        key={move.name}
+                        className='border-2 w-full'
+                        style={{ borderColor: translateTypeToSecondaryColor(type1) }}
+                      >
+                        <div
+                          className='w-full border-b-2 p-3 flex flex-row gap-3 items-center'
+                          style={{ borderColor: translateTypeToSecondaryColor(type1) }}
+                        >
+                          <span className='text-xl font-bold'>
+                            {move.name.replaceAll('-', ' ').toLocaleUpperCase()}
+                          </span>
+                          <div
+                            className='bg-black border-2 font-semibold px-2 py-1 rounded-md flex flex-row items-center justify-center gap-1'
+                            style={{ borderColor: translateTypeToPrimaryColor(move?.type?.name), color: translateTypeToPrimaryColor(move?.type?.name) }}
+                          >
+                            <TypeIconComponent type={move?.type?.name || ''} />
+                            <span>{move?.type?.name.toLocaleUpperCase()}</span>
+                          </div>
+                        </div>
+                        <div className=' bg-[#ffffffab] p-3'>
+                          <div className='flex flex-row items-start'>
+                            <span className='min-w-[130px]'>Learned at</span>
+                            <span className='font-bold'>{move.level_learned_at}</span>
+                          </div>
+                          <div className='flex flex-row items-start'>
+                            <span className='min-w-[130px]'>Damage class</span>
+                            <span className='font-bold'>{move.damage_class.name.toLocaleUpperCase()}</span>
+                          </div>
+                          <div className='flex flex-row items-start'>
+                            <span className='min-w-[130px]'>Power</span>
+                            <span className='font-bold'>{move.power || '---'}</span>
+                          </div>
+                          <div className='flex flex-row items-start'>
+                            <span className='min-w-[130px]'>Accuracy</span>
+                            <span className='font-bold'>{move?.accuracy || '---'}</span>
+                          </div>
+                          <div className='flex flex-row items-start'>
+                            <span className='min-w-[130px]'>Power points</span>
+                            <span className='font-bold'>{move?.pp || '---'}</span>
+                          </div>
+                          <div className='flex flex-row items-start'>
+                            <span className='min-w-[130px]'>Description</span>
+                            <span className='font-bold'>
+                              {move?.flavor_text_entries?.find((text) => text?.language?.name === 'en')?.flavor_text.replaceAll('SPCL.DEF', 'special defense').replaceAll('SPEED', 'speed').replaceAll('ATTACK', 'attack').replaceAll('Sp. Atk', 'special attack').replaceAll('DEFENSE', 'defense')}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              }
             </div>
           </section>
           {/* <section>

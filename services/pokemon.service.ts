@@ -76,3 +76,14 @@ export const getMovementDataByUrl = (url: string): Promise<PokemonMovementInfoTy
     throw new Error('Error to obtain pokemon data!', error);
   })
 }
+
+export const getAllTypesData = (): Promise<{name: string}[]> => {
+  return fetch('https://pokeapi.co/api/v2/type//?limit=18&offset=0')
+  .then(response => response.json())
+  .then(data => {
+    return data.results
+  })
+  .catch(error => {
+    throw new Error('Error to obtain pokemon data!', error);
+  })
+}

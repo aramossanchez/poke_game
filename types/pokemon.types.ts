@@ -104,5 +104,7 @@ export type PokemonMovementInfoType = {
     language: {name: string}
   }[],
   level_learned_at?: number,
-  damage_class: {name: string}
+  damage_class: {name: string},
+  power: number,
+  pp: number
 }
