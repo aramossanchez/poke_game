@@ -1,6 +1,6 @@
 import { damageReceivedCalculatorByType } from "@/services/game/damage_type_calculator.service";
 import { getAbilityDataByUrl, getMovementDataByUrl, getPokemonDataById, getPokemonSpecieByUrl, getTypeDataByUrl } from "@/services/pokemon.service"
-import { PokemonAbilityInfoType, PokemonFullDataType, PokemonMovementInfoType, PokemonSpecieInfoType, PokemonTypeInfoType } from "@/types/pokemon.types";
+import { PokemonAbilityInfoType, PokemonFullDataType, PokemonMovementInfoType, PokemonSpecieInfoType } from "@/types/pokemon.types";
 import { useEffect, useState } from "react";
 
 export default function usePokemonDetailComponent(pokemon_id: string) {
@@ -16,6 +16,7 @@ export default function usePokemonDetailComponent(pokemon_id: string) {
   const [counterSpriteNormalVersion, setCounterSpriteNormalVersion] = useState(1);
   const [spriteShinyVersion, setSpriteShinyVersion] = useState<string[]>([]);
   const [counterSpriteShinyVersion, setCounterSpriteShinyVersion] = useState(1);
+  const [openedInfo, setOpenedInfo] = useState(false);
 
   useEffect(() => {
     getPokemonData(pokemon_id);
@@ -108,6 +109,8 @@ export default function usePokemonDetailComponent(pokemon_id: string) {
     spriteShinyVersion,
     setCounterSpriteShinyVersion,
     counterSpriteShinyVersion,
-    useScreenWidth
+    useScreenWidth,
+    setOpenedInfo,
+    openedInfo
   }
 }

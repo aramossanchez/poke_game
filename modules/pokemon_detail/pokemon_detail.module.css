@@ -2,6 +2,20 @@
   animation: bar-movement 1s ease-in-out 0s;
 }
 
+.legend_container_opened {
+  animation: open-info 0.25s ease-in-out 0s;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.legend_container_closed {
+  animation: close-info 0.25s ease-in-out 0s;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  opacity: 0;
+  height: 0;
+}
+
 @keyframes bar-movement {
   from {
     padding-bottom: 0;
@@ -9,5 +23,35 @@
 
   to {
     padding-bottom: auto;
+  }
+}
+
+@keyframes open-info {
+  from {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    opacity: 0;
+  }
+
+  to {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    opacity: 1;
+  }
+}
+
+@keyframes close-info {
+  from {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    opacity: 1;
+    height: auto;
+  }
+
+  to {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    opacity: 0;
+    height: 0;
   }
 }

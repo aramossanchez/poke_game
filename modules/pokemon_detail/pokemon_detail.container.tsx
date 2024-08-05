@@ -7,7 +7,7 @@ import Image from "next/image";
 import TypeIconComponent from "@/components/type_icon.component";
 import { convertHeight, convertWeight, translateTypeToPrimaryColor, translateTypeToSecondaryColor } from "@/services/translator.service";
 import SpritesPokemonDetailComponent from "@/components/sprites_pokemon_detail/sprites_pokemon_detail.component";
-import { IconArrowBigLeftFilled, IconArrowBigRightFilled, IconBrandTorchain, IconHeartFilled, IconShieldCheckeredFilled, IconShieldHalfFilled, IconSword, IconSwords } from "@tabler/icons-react";
+import { IconArrowBigLeftFilled, IconArrowBigRightFilled, IconBrandTorchain, IconChevronDown, IconHeartFilled, IconShieldCheckeredFilled, IconShieldHalfFilled, IconSword, IconSwords } from "@tabler/icons-react";
 import style from './pokemon_detail.module.css';
 import Link from "next/link";
 import SectionTitleComponent from "@/components/section_title.component";
@@ -29,7 +29,9 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
     spriteShinyVersion,
     setCounterSpriteShinyVersion,
     counterSpriteShinyVersion,
-    useScreenWidth
+    useScreenWidth,
+    setOpenedInfo,
+    openedInfo
   } = usePokemonDetailComponent(pokemon_id);
 
   const typesName: string[] | undefined = pokemonData?.types.map((type) => type.type.name);
@@ -137,97 +139,117 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
           {/* COMBAT DATA SECTION */}
           <section className='w-full flex flex-col items-center'>
             <SectionTitleComponent type={type1} label='Combat data' />
-            <article className='w-[990px]'>
-              <div
-                className='flex flex-row items-end justify-between border-l-2 px-8 h-[500px]'
-                style={{ borderColor: translateTypeToSecondaryColor(type1) }}
-              >
-                {pokemonData?.stats.map((stat, index) => {
-                  return (
-                    <div
-                      key={stat.base_stat + index}
-                      className={`${style.stat_bar} w-[35px] rounded-t-lg relative`}
-                      style={{ backgroundColor: translateTypeToSecondaryColor(type1), paddingBottom: (Number(stat.base_stat) * 2) }}
-                    >
-                      <span
-                        className='absolute top-[-30px] font-bold w-full text-center'
-                        style={{ color: translateTypeToSecondaryColor(type1) }}
+            <div className='min-[1653px]:flex-row flex-col w-full flex items-start justify-around gap-y-20'>
+              <article className='min-[1653px]:w-[40%] w-full min-[1653px]:px-0 px-20 flex flex-col items-start'>
+                <span
+                  className='text-[25px] font-semibold border-l-2 border-b-2 p-2 mb-10 ml-[-20px]'
+                  style={{ color: translateTypeToSecondaryColor(type1), borderColor: translateTypeToSecondaryColor(type1) }}
+                >
+                  Stats
+                </span>
+                <div
+                  className='flex flex-row items-end justify-between border-l-2 px-8 h-[250px] w-full'
+                  style={{ borderColor: translateTypeToSecondaryColor(type1) }}
+                >
+                  {pokemonData?.stats.map((stat, index) => {
+                    return (
+                      <div
+                        key={stat.base_stat + index}
+                        className={`${style.stat_bar} w-[35px] rounded-t-lg relative`}
+                        style={{ backgroundColor: translateTypeToSecondaryColor(type1), paddingBottom: (Number(stat.base_stat)) }}
                       >
-                        {Number(stat.base_stat)}
-                      </span>
-                    </div>
-                  )
-                })}
-              </div>
-              <div
-                className='flex flex-row items-center justify-between border-t-2 pt-3 px-8'
-                style={{ borderColor: translateTypeToSecondaryColor(type1) }}
-              >
-                <IconHeartFilled size={40} color={translateTypeToSecondaryColor(type1)} />
-                <IconSword size={40} color={translateTypeToSecondaryColor(type1)} />
-                <IconShieldHalfFilled size={40} color={translateTypeToSecondaryColor(type1)} />
-                <IconSwords size={40} color={translateTypeToSecondaryColor(type1)} />
-                <IconShieldCheckeredFilled size={40} color={translateTypeToSecondaryColor(type1)} />
-                <IconBrandTorchain size={40} color={translateTypeToSecondaryColor(type1)} />
-              </div>
-            </article>
-            <article className='w-[990px] flex flex-col items-start justify-start px-10 gap-5 mt-20'>
-              <StatisticsExplanationComponent
-                icon={<IconHeartFilled size={30} color={translateTypeToSecondaryColor(type1)} />}
-                type={type1 || ''}
-                label='Health Points (HP)'
-                text='Determines how much damage a Pokémon can receive. When a Pokémon´s HP is completely down to 0, the Pokémon will faint.'
-              />
-              <StatisticsExplanationComponent
-                icon={<IconSword size={30} color={translateTypeToSecondaryColor(type1)} />}
-                type={type1 || ''}
-                label='Attack (A)'
-                text='Determines how much damage a Pokémon will resist when hit by a physical move.'
-              />
-              <StatisticsExplanationComponent
-                icon={<IconShieldHalfFilled size={30} color={translateTypeToSecondaryColor(type1)} />}
-                type={type1 || ''}
-                label='Defense (D)'
-                text='Determines how much damage a Pokémon will resist when hit by a physical move.'
-              />
-              <StatisticsExplanationComponent
-                icon={<IconSwords size={30} color={translateTypeToSecondaryColor(type1)} />}
-                type={type1 || ''}
-                label='Special Attack (SA)'
-                text='Determines how much damage a Pokémon can cause while using a special move.'
-              />
-              <StatisticsExplanationComponent
-                icon={<IconShieldCheckeredFilled size={30} color={translateTypeToSecondaryColor(type1)} />}
-                type={type1 || ''}
-                label='Special Defense (SD)'
-                text='Determines how much damage a Pokémon will resist when hit by a special move.'
-              />
-              <StatisticsExplanationComponent
-                icon={<IconBrandTorchain size={30} color={translateTypeToSecondaryColor(type1)} />}
-                type={type1 || ''}
-                label='Speed (S)'
-                text='Determines which Pokémon will act first during battle. Generally, the Pokémon with the higher Speed will be the one to attack first.'
-              />
-            </article>
-          </section>
-          {/* DAMAGE RECEIVED SECTION */}
-          <section className='w-full flex flex-col justify-center items-center'>
-            <SectionTitleComponent type={type1} label='Damages received' />
-            <div className='grid grid-cols-3 gap-y-8 gap-x-10 mt-20 w-[850px]'>
-              {Object.keys(damagesReceivedByType as { [key: string]: number })?.map((key) => {
-                return (
-                  <div key={key} className='flex flex-row justify-start items-center gap-3 '>
-                    <div
-                      className='flex flex-row items-center justify-center bg-black px-2 py-1 rounded-md'
-                      style={{ color: translateTypeToPrimaryColor(key) }}
-                    >
-                      <TypeTagComponent type={key} />
-                    </div>
-                    <span className='text-3xl font-semibold whitespace-nowrap'>x {damagesReceivedByType?.[key]}</span>
-                  </div>
+                        <span
+                          className='absolute top-[-30px] font-bold w-full text-center'
+                          style={{ color: translateTypeToSecondaryColor(type1) }}
+                        >
+                          {Number(stat.base_stat)}
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div
+                  className='flex flex-row items-center justify-between border-t-2 pt-3 px-8 w-full'
+                  style={{ borderColor: translateTypeToSecondaryColor(type1) }}
+                >
+                  <IconHeartFilled size={40} color={translateTypeToSecondaryColor(type1)} />
+                  <IconSword size={40} color={translateTypeToSecondaryColor(type1)} />
+                  <IconShieldHalfFilled size={40} color={translateTypeToSecondaryColor(type1)} />
+                  <IconSwords size={40} color={translateTypeToSecondaryColor(type1)} />
+                  <IconShieldCheckeredFilled size={40} color={translateTypeToSecondaryColor(type1)} />
+                  <IconBrandTorchain size={40} color={translateTypeToSecondaryColor(type1)} />
+                </div>
+                <div
+                  className='flex flex-row items-center gap-1 cursor-pointer mt-5 text-xl font-bold'
+                  style={{ color: translateTypeToSecondaryColor(type1) }}
+                  onClick={() => setOpenedInfo(!openedInfo)}
+                >
+                  <IconChevronDown className={`${!openedInfo ? 'rotate-0' : 'rotate-180'} ease-in-out duration-200`} />
+                  <span>Explanation</span>
+                </div>
+                <div className={`${openedInfo ? style.legend_container_opened : style.legend_container_closed} w-[100%] flex flex-col items-start justify-start gap-5 mt-10`}>
+                  <StatisticsExplanationComponent
+                    icon={<IconHeartFilled size={30} color={translateTypeToSecondaryColor(type1)} />}
+                    type={type1 || ''}
+                    label='Health Points (HP)'
+                    text='Determines how much damage a Pokémon can receive. When a Pokémon´s HP is completely down to 0, the Pokémon will faint.'
+                  />
+                  <StatisticsExplanationComponent
+                    icon={<IconSword size={30} color={translateTypeToSecondaryColor(type1)} />}
+                    type={type1 || ''}
+                    label='Attack (A)'
+                    text='Determines how much damage a Pokémon will resist when hit by a physical move.'
+                  />
+                  <StatisticsExplanationComponent
+                    icon={<IconShieldHalfFilled size={30} color={translateTypeToSecondaryColor(type1)} />}
+                    type={type1 || ''}
+                    label='Defense (D)'
+                    text='Determines how much damage a Pokémon will resist when hit by a physical move.'
+                  />
+                  <StatisticsExplanationComponent
+                    icon={<IconSwords size={30} color={translateTypeToSecondaryColor(type1)} />}
+                    type={type1 || ''}
+                    label='Special Attack (SA)'
+                    text='Determines how much damage a Pokémon can cause while using a special move.'
+                  />
+                  <StatisticsExplanationComponent
+                    icon={<IconShieldCheckeredFilled size={30} color={translateTypeToSecondaryColor(type1)} />}
+                    type={type1 || ''}
+                    label='Special Defense (SD)'
+                    text='Determines how much damage a Pokémon will resist when hit by a special move.'
+                  />
+                  <StatisticsExplanationComponent
+                    icon={<IconBrandTorchain size={30} color={translateTypeToSecondaryColor(type1)} />}
+                    type={type1 || ''}
+                    label='Speed (S)'
+                    text='Determines which Pokémon will act first during battle. Generally, the Pokémon with the higher Speed will be the one to attack first.'
+                  />
+                </div>
+              </article>
+              <article className='min-[1653px]:w-[40%] w-full min-[1653px]:px-0 px-20 flex flex-col items-start gap-10'>
+                <span
+                  className='text-[25px] font-semibold border-l-2 border-b-2 p-2 block ml-[-20px]'
+                  style={{ color: translateTypeToSecondaryColor(type1), borderColor: translateTypeToSecondaryColor(type1) }}
+                >
+                  Damage received
+                </span>
+                <div className='grid min-[1653px]:grid-cols-3 grid-cols-4 gap-y-8 gap-x-10 w-full'>
+                  {Object.keys(damagesReceivedByType as { [key: string]: number })?.map((key) => {
+                    return (
+                      <div key={key} className='flex flex-row justify-start items-center gap-3 '>
+                        <div
+                          className='flex flex-row items-center justify-center bg-black px-2 py-1 rounded-md'
+                          style={{ color: translateTypeToPrimaryColor(key) }}
+                        >
+                          <TypeTagComponent type={key} />
+                        </div>
+                        <span className='text-[23px] font-semibold whitespace-nowrap'>x {damagesReceivedByType?.[key]}</span>
+                      </div>
 
-                )
-              })}
+                    )
+                  })}
+                </div>
+              </article>
             </div>
           </section>
           {/* SKILLS SECTION */}
@@ -382,510 +404,6 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
               }
             </div>
           </section>
-          {/* <section>
-            <div className='w-full flex flex-row justify-between items-start'>
-              <div>
-              </div>
-              <div>
-                <div
-                  className='w-[140px] h-[140px] border-4 border-black flex flex-row items-center justify-center mb-2'
-                  style={{ background: `linear-gradient(to right bottom, ${translateTypeToPrimaryColor(type1 || '')}, ${type2 ? translateTypeToPrimaryColor(type2) : translateTypeToPrimaryColor(type1)}` }}
-                >
-                </div>
-              </div>
-            </div>
-            <div className='flex lg:flex-row lg:justify-between items-start flex-col gap-3'>
-              <div className='flex lg:flex-col lg:w-auto w-full flex-row gap-16 items-center justify-center'>
-
-              </div>
-            </div>
-            <div>
-              <h2>DATA</h2>
-            </div>
-            <div>
-              <h2>ATTACKS</h2>
-            </div>
-            {/* <Image
-              src={pokemonData?.sprites.back_default}
-              alt='Pokemon image 1'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.back_shiny}
-              alt='Pokemon image 2'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.front_default}
-              alt='Pokemon image 3'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.front_shiny}
-              alt='Pokemon image 4'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.other.home.front_default}
-              alt='Pokemon image 6'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.other.home.front_shiny}
-              alt='Pokemon image 7'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.other['official-artwork'].front_default}
-              alt='Pokemon image 8'
-              width={200}
-              height={200}
-            /> */}
-          {/* <Image
-              src={pokemonData?.sprites.other['official-artwork'].front_shiny}
-              alt='Pokemon image 9'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.other.showdown.back_default}
-              alt='Pokemon image 10'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.other.showdown.back_shiny}
-              alt='Pokemon image 11'
-              width={200}
-              height={200}
-            /> */}
-          {/* <Image
-              src={pokemonData?.sprites.other.showdown.front_default}
-              alt='Pokemon image 12'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.other.showdown.front_shiny}
-              alt='Pokemon image 13'
-              width={200}
-              height={200}
-            /> */}
-          {/* <Image
-              src={pokemonData?.sprites.versions['generation-i']['red-blue'].back_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-i']['red-blue'].back_gray}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-i']['red-blue'].back_transparent}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-i']['red-blue'].front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-i']['red-blue'].front_gray}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-i']['red-blue'].front_transparent}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-i'].yellow.back_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-i'].yellow.back_gray}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            /> */}
-          {/* <Image
-              src={pokemonData?.sprites.versions['generation-i'].yellow.back_transparent}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-i'].yellow.front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-i'].yellow.front_gray}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-i'].yellow.front_transparent}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].crystal.back_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            /> */}
-          {/* <Image
-              src={pokemonData?.sprites.versions['generation-ii'].crystal.back_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].crystal.back_shiny_transparent}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].crystal.back_transparent}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].crystal.front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].crystal.front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            /> */}
-          {/* <Image
-              src={pokemonData?.sprites.versions['generation-ii'].crystal.front_transparent}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].crystal.front_shiny_transparent}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            /> */}
-          {/* <Image
-              src={pokemonData?.sprites.versions['generation-ii'].gold.back_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].gold.back_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].gold.front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].gold.front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].gold.front_transparent}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].silver.back_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].silver.back_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].silver.front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].silver.front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-ii'].silver.front_transparent}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iii'].emerald.front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iii'].emerald.front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iii']['firered-leafgreen'].back_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iii']['firered-leafgreen'].back_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iii']['firered-leafgreen'].front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iii']['firered-leafgreen'].front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iii']['ruby-sapphire'].back_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iii']['ruby-sapphire'].back_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iii']['ruby-sapphire'].front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iii']['ruby-sapphire'].front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iv']['diamond-pearl'].back_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iv']['diamond-pearl'].back_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iv']['diamond-pearl'].front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iv']['diamond-pearl'].front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iv']['heartgold-soulsilver'].back_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iv']['heartgold-soulsilver'].back_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iv']['heartgold-soulsilver'].front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iv']['heartgold-soulsilver'].front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iv'].platinum.back_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iv'].platinum.back_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iv'].platinum.front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-iv'].platinum.front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-v']['black-white'].animated.back_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-v']['black-white'].animated.back_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-v']['black-white'].animated.front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-v']['black-white'].animated.front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-v']['black-white'].back_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-v']['black-white'].back_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-v']['black-white'].front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-v']['black-white'].front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-vi']['omegaruby-alphasapphire'].front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-vi']['omegaruby-alphasapphire'].front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-vi']['x-y'].front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-vi']['x-y'].front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-vii'].icons.front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-vii']['ultra-sun-ultra-moon'].front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-vii']['ultra-sun-ultra-moon'].front_shiny}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-            <Image
-              src={pokemonData?.sprites.versions['generation-viii'].icons.front_default}
-              alt='Pokemon image 14'
-              width={200}
-              height={200}
-            />
-          </section> */}
         </main>
       }
     </LayoutComponent>
