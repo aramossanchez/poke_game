@@ -37,7 +37,7 @@ export default function HeaderComponent() {
   }, [ref]);
 
   return (
-    <header className='h-[80px] flex flex-row items-center justify-between px-5 bg-slate-700 relative shadow-md'>
+    <header className='h-[80px] flex flex-row items-center justify-between px-5 relative bg-secondaryBackground'>
       <Image
         src='/images/logo.png'
         alt='Logo'
@@ -76,7 +76,7 @@ export default function HeaderComponent() {
           />
         }
       </div>
-      <article ref={ref} className={`${opened ? 'top-[80px] opacity-100' : 'top-[60px] opacity-0 pointer-events-none'} md:hidden flex-col w-full items-center gap-3 flex absolute  left-0 bg-slate-600 ease-in-out duration-150 shadow-md z-10`}>
+      <article ref={ref} className={`${opened ? 'top-[80px] opacity-100' : 'top-[60px] opacity-0 pointer-events-none'} md:hidden flex-col w-full items-center gap-3 flex absolute  left-0 bg-secondaryBackground ease-in-out duration-150 shadow-md z-10`}>
         <ActiveLinkComponent
           pathname={pathname}
           url='/'
