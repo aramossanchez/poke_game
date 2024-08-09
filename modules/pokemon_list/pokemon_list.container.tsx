@@ -5,6 +5,7 @@ import usePokemonListComponent from "./pokemon_list.hook";
 import LoaderPokeballComponent from "@/components/loader/loader";
 import PokemonCardComponent from "@/components/pokemon_card/pokemon_card";
 import { PokemonFullDataType } from "@/types/pokemon.types";
+import style from './pokemon_list.module.css';
 
 export default function PokemonListContainer() {
 
@@ -19,7 +20,10 @@ export default function PokemonListContainer() {
         ?
         <LoaderPokeballComponent />
         :
-        <div className='flex flex-row justify-start items-center flex-wrap gap-x-6 gap-y-10'>
+          <div className={`
+          ${style.pokelist_container}
+          grid items-center justify-items-center gap-y-10 p-5
+        `}>
           {pokemonList?.map((pokemon: PokemonFullDataType) => {
             return (
               <PokemonCardComponent key={pokemon.name} number={pokemon.id} pokemon={pokemon.name} image={pokemon.sprites.other['official-artwork'].front_default} types={pokemon.types} />
