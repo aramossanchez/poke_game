@@ -37,12 +37,12 @@ export default function HeaderComponent() {
   }, [ref]);
 
   return (
-    <header className='h-[80px] flex flex-row items-center justify-between px-5 relative bg-secondaryBackground'>
+    <header className='h-headerHeight flex flex-row items-center justify-between px-5 relative bg-secondaryBackground shadow-md'>
       <Image
         src='/images/logo.png'
         alt='Logo'
-        width={100}
-        height={50}
+        width={75}
+        height={35}
       />
       {/* PARTE WEB EN PC */}
       <article className='md:flex flex-row items-center gap-3 hidden'>
@@ -63,7 +63,7 @@ export default function HeaderComponent() {
         />
       </article>
       {/* PARTE WEB EN MOVIL */}
-      <div className='h-[80px] w-full absolute top-0 left-0 flex flex-row justify-center items-center md:hidden'>
+      <div className='h-headerHeight w-full absolute top-0 left-0 flex flex-row justify-center items-center md:hidden'>
         {opened ?
           <IconX
             className={`${style.icon} cursor-pointer`}
@@ -76,7 +76,7 @@ export default function HeaderComponent() {
           />
         }
       </div>
-      <article ref={ref} className={`${opened ? 'top-[80px] opacity-100' : 'top-[60px] opacity-0 pointer-events-none'} md:hidden flex-col w-full items-center gap-3 flex absolute  left-0 bg-secondaryBackground ease-in-out duration-150 shadow-md z-10`}>
+      <article ref={ref} className={`${opened ? 'top-[var(--headerHeight)] opacity-100' : 'top-0 opacity-0 pointer-events-none'} md:hidden flex-col w-full items-center gap-3 flex absolute  left-0 bg-secondaryBackground ease-in-out duration-150 shadow-md z-10`}>
         <ActiveLinkComponent
           pathname={pathname}
           url='/'

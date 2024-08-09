@@ -1,5 +1,6 @@
 import { damageReceivedCalculatorByType } from "@/services/game/damage_type_calculator.service";
-import { getAbilityDataByUrl, getMovementDataByUrl, getPokemonDataById, getPokemonSpecieByUrl, getTypeDataByUrl } from "@/services/pokemon.service"
+import { extractValidMovesFromAllMoves } from "@/services/general.service";
+import { getAbilityDataByUrl, getPokemonDataById, getPokemonSpecieByUrl, getTypeDataByUrl } from "@/services/pokemon.service"
 import { PokemonAbilityInfoType, PokemonFullDataType, PokemonMovementInfoType, PokemonSpecieInfoType } from "@/types/pokemon.types";
 import { useEffect, useState } from "react";
 
@@ -39,15 +40,7 @@ export default function usePokemonDetailComponent(pokemon_id: string) {
         const abilityData = await getAbilityDataByUrl(ability.ability.url);
         arrayWithAbilities.push(abilityData);
       }
-      let arrayWithMovements = [];
-      for (const move of pokemon.moves) {
-        if (move.version_group_details[0].level_learned_at > 0) {
-          const moveToPush = await getMovementDataByUrl(move.move.url)
-          moveToPush.level_learned_at = move.version_group_details[0].level_learned_at;
-          arrayWithMovements.push(moveToPush);          
-        }
-      }
-      arrayWithMovements = arrayWithMovements.sort((a, b) => (a?.level_learned_at || 0) - (b?.level_learned_at || 0));
+      const arrayWithMovements = await extractValidMovesFromAllMoves(pokemon.moves);
       // SET
       setPokemonData(pokemon);
       setSpriteNormalVersion([

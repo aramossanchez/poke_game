@@ -14,6 +14,9 @@ const config: Config = {
         'primaryColor': 'var(--primaryColor)',
         'secondaryColor': 'var(--secondaryColor)',
         'secondaryBackground': 'var(--secondaryBackground)'
+      },
+      height: {
+        'headerHeight': 'var(--headerHeight)'
       }
     }
   },

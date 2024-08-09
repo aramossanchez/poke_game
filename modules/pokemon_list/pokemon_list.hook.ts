@@ -1,6 +1,6 @@
-import { getPokemonDataByUrl, getPokemonList } from "@/services/pokemon.service";
-import { PokemonFullDataType } from "@/types/pokemon.types";
-import { useEffect, useState } from "react"
+import { getPokemonDataByUrl, getPokemonList } from '@/services/pokemon.service';
+import { PokemonFullDataType } from '@/types/pokemon.types';
+import { useEffect, useState } from 'react'
 
 export default function usePokemonListComponent () {
 

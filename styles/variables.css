@@ -1,5 +1,7 @@
 :root {
+  --headerHeight: 60px;
   --primaryColor: #334155;
   --secondaryColor: #eab308;
+  --primaryBackground: #fffdf5;
   --secondaryBackground: #eeeeee;
 }

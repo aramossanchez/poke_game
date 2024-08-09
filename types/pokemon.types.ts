@@ -108,3 +108,47 @@ export type PokemonMovementInfoType = {
   power: number,
   pp: number
 }
+
+export type PokemonMemberType = {
+  id: string,
+  name: string,
+  stats: {base_stat: string}[],
+  sprites: {
+    front_default: string,
+    other: {
+      'official-artwork': {
+        front_default: string
+      },
+      dream_world: {
+        front_default: string
+      },
+      showdown: {
+        front_default: string,
+        front_shiny: string
+      }
+    },
+    versions :{
+      'generation-v': {
+        'black-white': {
+          animated: {
+            front_default: string,
+            front_shiny: string,
+          }
+        }
+      },
+      'generation-ii': {
+        crystal: {
+          front_transparent: string,
+          front_shiny_transparent: string
+        }
+      }
+    }
+  },types: {
+    type: {
+      name: string,
+      url: string
+    }
+  }[],
+  moves: PokemonMovementInfoType[],
+  selected_moves: PokemonMovementInfoType[],
+}
