@@ -13,7 +13,11 @@ const config: Config = {
       colors: {
         'primaryColor': 'var(--primaryColor)',
         'secondaryColor': 'var(--secondaryColor)',
-        'secondaryBackground': 'var(--secondaryBackground)'
+        'tertiaryColor': 'var(--tertiaryColor)',
+        'primaryBackground': 'var(--primaryBackground)',
+        'secondaryBackground': 'var(--secondaryBackground)',
+        'titleColor': 'var(--titleColor)',
+        'subtitleColor': 'var(--subtitleColor)'
       },
       height: {
         'headerHeight': 'var(--headerHeight)'

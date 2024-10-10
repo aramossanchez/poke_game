@@ -4,9 +4,9 @@ import { IconMinus, IconPlus } from '@tabler/icons-react';
 import { translateTypeToPrimaryColor } from '@/services/translator.service';
 import TypeIconComponent from '../type_icon.component';
 import Link from 'next/link';
-import PrimaryButton from '../primary_button.component';
 import { addPokemonToTeam, pokemonExistInTeam } from '@/services/general.service';
 import { useState } from 'react';
+import ButtonPokemonCard from '../button_pokemon_card_component';
 
 export default function PokemonCardComponent({ number, pokemon, image, types }: { number: string, pokemon: string, image: string, types: { type: { name: string } }[] }) {
 
@@ -61,7 +61,7 @@ export default function PokemonCardComponent({ number, pokemon, image, types }: 
             })}
           </div>
           <Link href={`/pokemon/${number}`} className='w-full flex flex-row justify-center mb-2'>
-            <PrimaryButton text='Details' />
+            <ButtonPokemonCard text='Details' />
           </Link>
         </div>
       </div>

@@ -37,7 +37,7 @@ export default function HeaderComponent() {
   }, [ref]);
 
   return (
-    <header className='h-headerHeight flex flex-row items-center justify-between px-5 relative bg-secondaryBackground shadow-md'>
+    <header className='z-50 h-headerHeight flex flex-row items-center justify-between px-5 bg-secondaryBackground shadow-md sticky top-0 w-full'>
       <Image
         src='/images/logo.png'
         alt='Logo'
