@@ -19,14 +19,16 @@ export default function LandingContainer() {
             height={200}
           />
         </div>
-        <article className="lg:basis-3/5 flex flex-col justify-center items-center gap-y-6">
-          <h2 className="text-center">¡Domina las batallas Pokémon!</h2>
-          <h5 className="text-center">Conoce todos los datos de cada Pokémon, selecciona tu equipo, entréntate a los rivales más duros y conviértete en el mejor entrenador.</h5>
-          <div className="flex justify-center gap-6 md:flex-row flex-col">
-            <PrimaryButton text="Montar tu equipo" icon={<IconPokeball />} />
-            <SecondaryButton text="Explorar Pokédex" icon={<IconArrowRight />} />
-          </div>
-        </article>
+        <div className="flex w-full justify-center">
+          <article className="lg:basis-3/5 flex flex-col justify-center items-center gap-y-6">
+            <h2 className="text-center">¡Conviértete en el mejor entrenador!</h2>
+            <h5 className="text-center">Conoce todos los datos de cada Pokémon, selecciona tu equipo, entréntate a los rivales más duros y lleva tus habilidades como entrenador Pokémon al siguiente nivel.</h5>
+            <div className="flex justify-center gap-6 md:flex-row flex-col">
+              <PrimaryButton text="Monta tu equipo" icon={<IconPokeball />} />
+              <SecondaryButton text="Explora la Pokédex" icon={<IconArrowRight />} />
+            </div>
+          </article>
+        </div>
       </section>
       <section className="bg-secondaryBackground px-4 py-32 flex w-full justify-center">
         <article className="lg:basis-3/5 grid md:grid-cols-2 grid-cols-1 gap-2 gap-y-20 items-start">
@@ -83,7 +85,7 @@ export default function LandingContainer() {
         <div className="w-full flex justify-center">
           <article className="sm:basis-4/5 grid lg:grid-cols-2 grid-cols-1 gap-20 gap-y-20">
             <TestimonialsComponent
-              message="¡Esta plataforma ha llevado mis habilidades al siguiente nivel!"
+              message="¡Esta plataforma ha sido clave para convertirme en campeón de la liga Pokémon!"
               author="Ash K."
               profile="ash.webp"
             />
