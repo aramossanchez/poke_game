@@ -1,7 +1,7 @@
-import LandingContainer from "@/modules/landing.container";
+import LandingTemplate from "@/templates/landing.template";
 
 export default function Home() {
   return (
-    <LandingContainer />
+    <LandingTemplate />
   );
 }

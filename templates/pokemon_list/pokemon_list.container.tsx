@@ -2,10 +2,10 @@
 
 import LayoutComponent from "@/layouts/layout";
 import usePokemonListComponent from "./pokemon_list.hook";
-import LoaderPokeballComponent from "@/components/loader/loader";
-import PokemonCardComponent from "@/components/pokemon_card/pokemon_card";
+import LoaderPokeballComponent from "@/atoms/loader/loader.atom";
 import { PokemonFullDataType } from "@/types/pokemon.types";
 import style from './pokemon_list.module.css';
+import PokemonCardComponent from "@/molecules/pokemon_card/pokemon_card.molecule";
 
 export default function PokemonListContainer() {
 

@@ -1,6 +1,6 @@
 'use client';
 
-import ActiveLinkComponent from "@/components/ActiveLink.component";
+import HeaderLinkComponent from "@/atoms/header_link.atom";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -46,17 +46,17 @@ export default function HeaderComponent() {
       />
       {/* PARTE WEB EN PC */}
       <article className='md:flex flex-row items-center gap-3 hidden'>
-        <ActiveLinkComponent
+        <HeaderLinkComponent
           pathname={pathname}
           url='/'
           label='Home'
         />
-        <ActiveLinkComponent
+        <HeaderLinkComponent
           pathname={pathname}
           url='/pokemon-list'
           label='Pokemon list'
         />
-        <ActiveLinkComponent
+        <HeaderLinkComponent
           pathname={pathname}
           url='/your-team'
           label='Your team'
@@ -77,17 +77,17 @@ export default function HeaderComponent() {
         }
       </div>
       <article ref={ref} className={`${opened ? 'top-[var(--headerHeight)] opacity-100' : 'top-0 opacity-0 pointer-events-none'} md:hidden flex-col w-full items-center gap-3 flex absolute  left-0 bg-secondaryBackground ease-in-out duration-150 shadow-md z-10`}>
-        <ActiveLinkComponent
+        <HeaderLinkComponent
           pathname={pathname}
           url='/'
           label='Home'
         />
-        <ActiveLinkComponent
+        <HeaderLinkComponent
           pathname={pathname}
           url='/pokemon-list'
           label='Pokemon list'
         />
-        <ActiveLinkComponent
+        <HeaderLinkComponent
           pathname={pathname}
           url='/your-team'
           label='Your team'

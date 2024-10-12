@@ -2,11 +2,13 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./modules/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./layouts/**/*.{js,ts,jsx,tsx,mdx}",
+    "./templates/**/*.{js,ts,jsx,tsx,mdx}",
+    "./organisms/**/*.{js,ts,jsx,tsx,mdx}",
+    "./molecules/**/*.{js,ts,jsx,tsx,mdx}",
+    "./atoms/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -21,9 +23,9 @@ const config: Config = {
       },
       height: {
         'headerHeight': 'var(--headerHeight)'
-      }
+      },
     }
   },
-plugins: [],
+  plugins: [],
 };
 export default config;

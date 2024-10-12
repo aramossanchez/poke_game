@@ -1,8 +1,8 @@
 import LayoutComponent from "@/layouts/layout";
 import useYourTeamContainer from "./your_team.hook";
-import LoaderPokeballComponent from "@/components/loader/loader";
-import PokemonInTeam from "@/components/pokemon_in_team.component";
-import PrimaryButton from "@/components/primary_button.component";
+import LoaderPokeballComponent from "@/atoms/loader/loader.atom";
+import PokemonInTeam from "@/molecules/pokemon_in_team/pokemon_in_team.component";
+import PrimaryButton from "@/atoms/primary_button.atom";
 
 export default function YourTeamContainer() {
 

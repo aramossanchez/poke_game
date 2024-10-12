@@ -1,5 +1,5 @@
 import { translateTypeToPrimaryColor } from "@/services/translator.service";
-import TypeIconComponent from "./type_icon.component";
+import TypeIconComponent from "../atoms/type_icon.atom";
 
 export default function TypeTagComponent({ type }: { type: string }) {
   return (

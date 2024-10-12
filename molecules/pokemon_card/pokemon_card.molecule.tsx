@@ -2,11 +2,11 @@ import Image from 'next/image';
 import style from './pokemon_card.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
 import { translateTypeToPrimaryColor } from '@/services/translator.service';
-import TypeIconComponent from '../type_icon.component';
 import Link from 'next/link';
 import { addPokemonToTeam, pokemonExistInTeam } from '@/services/general.service';
 import { useState } from 'react';
-import ButtonPokemonCard from '../button_pokemon_card_component';
+import ButtonPokemonCard from '../../atoms/button_pokemon_card.atom';
+import TypeIconComponent from '@/atoms/type_icon.atom';
 
 export default function PokemonCardComponent({ number, pokemon, image, types }: { number: string, pokemon: string, image: string, types: { type: { name: string } }[] }) {
 

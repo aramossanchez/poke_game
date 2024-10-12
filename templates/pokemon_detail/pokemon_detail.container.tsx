@@ -2,17 +2,17 @@
 
 import LayoutComponent from "@/layouts/layout";
 import usePokemonDetailComponent from "./pokemon_detail.hook";
-import LoaderPokeballComponent from "@/components/loader/loader";
+import LoaderPokeballComponent from "@/atoms/loader/loader.atom";
 import Image from "next/image";
-import TypeIconComponent from "@/components/type_icon.component";
+import TypeIconComponent from "@/atoms/type_icon.atom";
 import { convertHeight, convertWeight, translateTypeToPrimaryColor, translateTypeToSecondaryColor } from "@/services/translator.service";
-import SpritesPokemonDetailComponent from "@/components/sprites_pokemon_detail/sprites_pokemon_detail.component";
+import SpritesPokemonDetailComponent from "@/molecules/sprites_pokemon_detail/sprites_pokemon_detail.component";
 import { IconArrowBigLeftFilled, IconArrowBigRightFilled, IconBrandTorchain, IconChevronDown, IconHeartFilled, IconShieldCheckeredFilled, IconShieldHalfFilled, IconSword, IconSwords } from "@tabler/icons-react";
 import style from './pokemon_detail.module.css';
 import Link from "next/link";
-import SectionTitleComponent from "@/components/section_title.component";
-import StatisticsExplanationComponent from "@/components/statistics_explanation.component";
-import TypeTagComponent from "@/components/type_tag.component";
+import SectionTitleComponent from "@/molecules/section_title.component";
+import StatisticsExplanationComponent from "@/molecules/statistics_explanation.component";
+import TypeTagComponent from "@/molecules/type_tag.molecule";
 
 export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: string }) {
 
@@ -46,7 +46,7 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
         <LoaderPokeballComponent />
         :
         <main
-          className='flex flex-row items-center justify-center gap-40 flex-wrap w-full py-4 px-2'
+          className='flex flex-row items-center justify-center gap-40 flex-wrap w-full pt-4 px-2 pb-40'
           style={{ background: `linear-gradient(0.25turn, ${translateTypeToPrimaryColor(type1 || '')}, ${type2 ? translateTypeToPrimaryColor(type2) : translateTypeToPrimaryColor(type1)})` }}
         >
           {/* PRESENTATION SECTION */}
@@ -198,7 +198,7 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
                     icon={<IconSword size={30} color={translateTypeToSecondaryColor(type1)} />}
                     type={type1 || ''}
                     label='Attack (A)'
-                    text='Determines how much damage a Pokémon will resist when hit by a physical move.'
+                    text='Determines how much damage a Pokémon can cause while using a physical move.'
                   />
                   <StatisticsExplanationComponent
                     icon={<IconShieldHalfFilled size={30} color={translateTypeToSecondaryColor(type1)} />}
