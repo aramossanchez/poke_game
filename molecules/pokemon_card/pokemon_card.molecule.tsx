@@ -7,6 +7,7 @@ import { addPokemonToTeam, pokemonExistInTeam } from '@/services/general.service
 import { useState } from 'react';
 import ButtonPokemonCard from '../../atoms/button_pokemon_card.atom';
 import TypeIconComponent from '@/atoms/type_icon.atom';
+import ImageForPokemonCard from '@/atoms/image_for_pokemon_card.atom';
 
 export default function PokemonCardComponent({ number, pokemon, image, types }: { number: string, pokemon: string, image: string, types: { type: { name: string } }[] }) {
 
@@ -16,54 +17,44 @@ export default function PokemonCardComponent({ number, pokemon, image, types }: 
   const [addedInTeam, setAddedInTeam] = useState(pokemonExistInTeam(number));
 
   return (
-    <div className={`${style.card} p-[4px] w-[150px] h-[260px] bg-primaryColor relative hover:brightness-110 ease-in-out duration-100`}>
+    <div className={`${style.card} p-2 w-[150px] h-[245px] bg-primaryColor relative hover:brightness-110 ease-in-out duration-100 flex flex-col gap-y-2`}>
       <div
-        className='absolute top-[136px] right-2 z-10 rounded-full'
-        onClick={() => {addPokemonToTeam(number); setAddedInTeam(pokemonExistInTeam(number))}}
+        className='absolute top-[165px] right-3 z-10 rounded-full'
+        onClick={() => { addPokemonToTeam(number); setAddedInTeam(pokemonExistInTeam(number)) }}
       >
         {!addedInTeam ?
           <IconPlus size={20} className='text-primaryColor hover:border-white ease-in-out duration-300 cursor-pointer bg-secondaryColor border-2 border-primaryColor rounded-full' />
-        :       
+          :
           <IconMinus size={20} className='text-primaryColor hover:border-white ease-in-out duration-300 cursor-pointer bg-secondaryColor border-2 border-primaryColor rounded-full' />
         }
       </div>
-      <div
-        className={`${style.card} bg-slate-200 w-full h-full shadow-lg p-2 flex flex-col justify-start`}
-        style={{ background: `linear-gradient(to right bottom, ${translateTypeToPrimaryColor(type1)}, ${type2 ? translateTypeToPrimaryColor(type2) : translateTypeToPrimaryColor(type1)}` }}
-      >
-        <div className='text-white text-sm font-bold p-2 pl-5 w-full bg-primaryColor flex flex-row justify-between items-center absolute top-0 left-0 h-[30px] gap-1'>
-          <span>#{number}</span>
-          <span>{pokemon.toLocaleUpperCase()}</span>
-        </div>
-        <div className='flex flex-col justify-center items-center w-full h-[70%]'>
-          <Image
-            src={image}
-            alt='Pokemon sprite'
-            width={120}
-            height={120}
-            className='z-10'
-          />
-        </div>
-        <div className='absolute w-[150px] h-[180px] flex flex-row justify-center items-center top-1 left-0'>
-          <div className='bg-slate-100 opacity-50 h-[110px] w-[110px] rounded-full shadow-md shadow-slate-600'></div>
-        </div>
-        <div className='px-4 w-full bg-primaryColor flex flex-col items-start justify-between absolute bottom-0 left-0 h-[100px]'>
-          <div className='flex flex-col gap-1 text-sm items-center justify-center w-full h-full ml-[-3px]'>
-            {typesName.map((type) => {
-              return (
-                <div key={type + '-' + number} className='flex flex-row items-center gap-1' style={{ color: translateTypeToPrimaryColor(type) }}>
-                  <TypeIconComponent type={type} size={12} />
-                  <span
-                    className='font-semibold'
-                  >{type.toLocaleUpperCase()}</span>
-                </div>
-              )
-            })}
-          </div>
-          <Link href={`/pokemon/${number}`} className='w-full flex flex-row justify-center mb-2'>
-            <ButtonPokemonCard text='Details' />
-          </Link>
-        </div>
+      <div className='text-white text-sm font-bold pl-2 w-full bg-primaryColor flex justify-between items-center'>
+        <span>#{number}</span>
+        <span>{pokemon.toLocaleUpperCase()}</span>
+      </div>
+
+      <div className='flex text-sm items-center justify-between w-full'>
+        {typesName.map((type) => {
+          return (
+            <div key={type + '-' + number} className='flex flex-row items-center gap-1' style={{ color: translateTypeToPrimaryColor(type) }}>
+              <TypeIconComponent type={type} size={12} />
+              <span
+                className='font-semibold text-xs'
+              >{type.toLocaleUpperCase()}</span>
+            </div>
+          )
+        })}
+      </div>
+      <ImageForPokemonCard
+        image={image}
+        imageSize={100}
+        type1={type1}
+        type2={type2}
+      />
+      <div className='w-full bg-primaryColor flex flex-col items-start justify-between gap-y-1'>
+        <Link href={`/pokemon/${number}`} className='w-full flex flex-row justify-center mb-2'>
+          <ButtonPokemonCard text='Details' />
+        </Link>
       </div>
     </div>
   )

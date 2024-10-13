@@ -1,0 +1,16 @@
+.card {
+  clip-path: polygon(7% 0, 100% 0%, 100% 50%, 100% 95%, 93% 100%, 0 100%, 0 5%);
+}
+
+.moves_list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.moves_list::-webkit-scrollbar-track {
+  background: var(--modalBackground);
+}
+
+.moves_list::-webkit-scrollbar-thumb {
+  background: var(--secondaryColor);
+  border-radius: 20px;       /* roundness of the scroll thumb */
+}

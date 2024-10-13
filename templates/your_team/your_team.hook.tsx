@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 export default function useYourTeamContainer() {
 
   const [pokemonTeamSelected, setPokemonTeamSelected] = useState<PokemonMemberType[]>([]);
+  const [pokemonSelectedToModal, setPokemonSelectedToModal] = useState<PokemonMemberType | null >();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -69,6 +70,8 @@ export default function useYourTeamContainer() {
 
   return {
     pokemonTeamSelected,
+    pokemonSelectedToModal,
+    setPokemonSelectedToModal,
     loading,
     addMoveInPokemon,
     deleteMoveInPokemon

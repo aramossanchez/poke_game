@@ -20,10 +20,7 @@ export default function PokemonListContainer() {
         ?
         <LoaderPokeballComponent />
         :
-          <div className={`
-          ${style.pokelist_container}
-          grid items-center justify-items-center gap-y-10 p-5
-        `}>
+        <div className={`${style.pokelist_container} grid items-center justify-items-center gap-y-10 p-5`}>
           {pokemonList?.map((pokemon: PokemonFullDataType) => {
             return (
               <PokemonCardComponent key={pokemon.name} number={pokemon.id} pokemon={pokemon.name} image={pokemon.sprites.other['official-artwork'].front_default} types={pokemon.types} />
