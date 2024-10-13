@@ -32,7 +32,6 @@ export default function PokemonCardComponent({ number, pokemon, image, types }: 
         <span>#{number}</span>
         <span>{pokemon.toLocaleUpperCase()}</span>
       </div>
-
       <div className='flex text-sm items-center justify-between w-full'>
         {typesName.map((type) => {
           return (

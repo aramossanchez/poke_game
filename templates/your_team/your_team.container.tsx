@@ -36,7 +36,7 @@ export default function YourTeamContainer() {
       :
       <section className="flex flex-col p-10 gap-y-10">
         <h2>Your team</h2>
-        <div className="flex items-center gap-4 flex-wrap">
+        <div className="flex items-start gap-4 flex-wrap">
           {pokemonTeamSelected?.map((pokemon) => {
             return (
               <PokemonInYourTeam

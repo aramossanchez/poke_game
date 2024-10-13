@@ -20,7 +20,8 @@ const config: Config = {
         'secondaryBackground': 'var(--secondaryBackground)',
         'titleColor': 'var(--titleColor)',
         'subtitleColor': 'var(--subtitleColor)',
-        'modalBackground': 'var(--modalBackground)'
+        'modalBackground': 'var(--modalBackground)',
+        'colorSuccess': 'var(--colorSuccess)',
       },
       height: {
         'headerHeight': 'var(--headerHeight)'

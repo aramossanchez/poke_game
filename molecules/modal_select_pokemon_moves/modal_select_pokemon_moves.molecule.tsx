@@ -1,6 +1,6 @@
 import { translateTypeToPrimaryColor, translateTypeToSecondaryColor } from "@/services/translator.service";
 import { PokemonMemberType, PokemonMovementInfoType } from "@/types/pokemon.types";
-import { IconInfoCircle, IconInfoCircleFilled, IconSquare, IconSquareCheckFilled } from "@tabler/icons-react";
+import { IconInfoCircle, IconInfoCircleFilled, IconSquare, IconSquareCheckFilled, IconX } from "@tabler/icons-react";
 import style from "./modal_select_pokemon_moves.module.css";
 import Image from "next/image"
 import TypeIconComponent from "@/atoms/type_icon.atom";
@@ -35,12 +35,9 @@ export default function ModalSelectPokemonMoves({
       onClick={closeModal}
     >
       <div
-        className={`${style.card} col-span-1 w-[500px] min-h-[100px] flex flex-col gap-6 text-white rounded-lg p-6 bg-primaryColor relative`}
+        className={`${style.card} col-span-1 w-[500px] min-h-[100px] flex flex-col gap-6 text-white rounded-lg px-6 py-4 bg-primaryColor`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="top-0 right-0 absolute">
-          <CloseModalButton onClick={closeModal} />
-        </div>
         <div className="w-full flex gap-x-2 font-semibold text-2xl justify-between">
           <span>#{pokemon?.id}</span>
           <span>{pokemon?.name.toLocaleUpperCase()}</span>
@@ -50,9 +47,9 @@ export default function ModalSelectPokemonMoves({
             {typesName.map((type) => {
               return (
                 <div key={type + '-' + pokemon?.id} className='flex flex-row items-center gap-1' style={{ color: translateTypeToPrimaryColor(type) }}>
-                  <TypeIconComponent type={type} size={16} />
+                  <TypeIconComponent type={type} size={20} />
                   <span
-                    className='font-semibold text-base'
+                    className='font-semibold text-xl'
                   >{type.toLocaleUpperCase()}</span>
                 </div>
               )
@@ -141,7 +138,7 @@ export default function ModalSelectPokemonMoves({
           </div>
         </div>
         <div className="flex w-full justify-center">
-          <PrimaryButton text="Save" />
+          <PrimaryButton text="Close" onClick={closeModal} />
         </div>
       </div>
     </article>
