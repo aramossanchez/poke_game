@@ -13,9 +13,13 @@ export const extractValidMovesFromAllMoves = async (moves: {
   const arrayWithMovements = [];
   for (const move of moves) {
     if (move.version_group_details[0].level_learned_at > 0) {
-      const moveToPush = await getMovementDataByUrl(move.move.url)
-      moveToPush.level_learned_at = move.version_group_details[0].level_learned_at;
-      arrayWithMovements.push(moveToPush);
+      try {
+        const moveToPush = await getMovementDataByUrl(move.move.url);
+        moveToPush.level_learned_at = move.version_group_details[0].level_learned_at;
+        arrayWithMovements.push(moveToPush);
+      } catch (error) {
+        console.error("url not works in pokemon api ->", move.move.url);
+      }
     }
   }
   const arrayOrdered = arrayWithMovements.sort((a, b) => (a?.level_learned_at || 0) - (b?.level_learned_at || 0));

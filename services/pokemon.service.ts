@@ -1,6 +1,6 @@
 import { PokemonAbilityInfoType, PokemonBasicInfoType, PokemonFullDataType, PokemonMovementInfoType, PokemonSpecieInfoType, PokemonTypeInfoType } from "@/types/pokemon.types";
 
-export const getPokemonList = (): Promise<PokemonBasicInfoType[]> => {
+export const getPokemonList =  async (): Promise<PokemonBasicInfoType[]> => {
   return fetch('https://pokeapi.co/api/v2/pokemon/?limit=151&offset=0')
   .then(response => response.json())
   .then(data => {
@@ -11,7 +11,7 @@ export const getPokemonList = (): Promise<PokemonBasicInfoType[]> => {
   })
 }
 
-export const getPokemonDataByUrl = (url: string): Promise<PokemonFullDataType> => {
+export const getPokemonDataByUrl = async (url: string): Promise<PokemonFullDataType> => {
   return fetch(url)
   .then(response => response.json())
   .then(data => {
@@ -22,7 +22,7 @@ export const getPokemonDataByUrl = (url: string): Promise<PokemonFullDataType> =
   })
 }
 
-export const getPokemonDataById = (id: string): Promise<PokemonFullDataType> => {
+export const getPokemonDataById = async (id: string): Promise<PokemonFullDataType> => {
   return fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
   .then(response => response.json())
   .then(data => {
@@ -33,7 +33,7 @@ export const getPokemonDataById = (id: string): Promise<PokemonFullDataType> => 
   })
 }
 
-export const getPokemonSpecieByUrl = (url: string): Promise<PokemonSpecieInfoType> => {
+export const getPokemonSpecieByUrl = async (url: string): Promise<PokemonSpecieInfoType> => {
   return fetch(url)
   .then(response => response.json())
   .then(data => {
@@ -44,7 +44,7 @@ export const getPokemonSpecieByUrl = (url: string): Promise<PokemonSpecieInfoTyp
   })
 }
 
-export const getTypeDataByUrl = (url: string): Promise<PokemonTypeInfoType> => {
+export const getTypeDataByUrl = async (url: string): Promise<PokemonTypeInfoType> => {
   return fetch(url)
   .then(response => response.json())
   .then(data => {
@@ -55,7 +55,7 @@ export const getTypeDataByUrl = (url: string): Promise<PokemonTypeInfoType> => {
   })
 }
 
-export const getAbilityDataByUrl = (url: string): Promise<PokemonAbilityInfoType> => {
+export const getAbilityDataByUrl = async (url: string): Promise<PokemonAbilityInfoType> => {
   return fetch(url)
   .then(response => response.json())
   .then(data => {
@@ -66,7 +66,7 @@ export const getAbilityDataByUrl = (url: string): Promise<PokemonAbilityInfoType
   })
 }
 
-export const getMovementDataByUrl = (url: string): Promise<PokemonMovementInfoType> => {
+export const getMovementDataByUrl = async (url: string): Promise<PokemonMovementInfoType> => {
   return fetch(url)
   .then(response => response.json())
   .then(data => {
@@ -77,7 +77,7 @@ export const getMovementDataByUrl = (url: string): Promise<PokemonMovementInfoTy
   })
 }
 
-export const getAllTypesData = (): Promise<{name: string}[]> => {
+export const getAllTypesData = async (): Promise<{name: string}[]> => {
   return fetch('https://pokeapi.co/api/v2/type//?limit=18&offset=0')
   .then(response => response.json())
   .then(data => {

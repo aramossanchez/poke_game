@@ -21,9 +21,6 @@ export default function PokemonInYourTeam({
   const type1 = typesName?.[0];
   const type2 = typesName?.[1];
 
-  console.log(pokemonTeamSelected.selected_moves);
-
-
   return (
     <article className="flex flex-col">
       <div
