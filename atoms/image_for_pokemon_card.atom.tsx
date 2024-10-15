@@ -36,11 +36,11 @@ export default function ImageForPokemonCard({
         width={80}
         height={0}
         className='z-20'
-        style={{width: imageSize, height: imageSize}}
+        style={{ width: imageSize, height: imageSize }}
       />
       <div
-      className="absolute bg-slate-100 opacity-50 shadow-md shadow-slate-600 rounded-full"
-      style={{width: imageSize, height: imageSize}}
+        className="absolute bg-slate-100 opacity-50 shadow-md shadow-slate-600 rounded-full"
+        style={{ width: imageSize, height: imageSize }}
       ></div>
     </div>
   )

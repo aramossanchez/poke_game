@@ -17,7 +17,7 @@ export default function PokemonCardComponent({ number, pokemon, image, types }: 
   const [addedInTeam, setAddedInTeam] = useState(pokemonExistInTeam(number));
 
   return (
-    <div className={`${style.card} p-2 w-[150px] h-[245px] bg-primaryColor relative hover:brightness-110 ease-in-out duration-100 flex flex-col gap-y-2`}>
+    <div className={`${style.card} p-2 w-[150px] h-[245px] bg-primaryColor relative hover:rotate-1 hover:brightness-110 ease-in-out duration-100 flex flex-col gap-y-2`}>
       <div
         className='absolute top-[165px] right-3 z-10 rounded-full'
         onClick={() => { addPokemonToTeam(number); setAddedInTeam(pokemonExistInTeam(number)) }}
