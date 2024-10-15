@@ -121,6 +121,7 @@ export default function ModalSelectPokemonMoves({
                     <div
                       className="flex flex-col gap-y-1 p-2 my-2 border-2 rounded-lg"
                       style={{ borderColor: translateTypeToSecondaryColor(type1) }}
+                      key={move.name + "-explanation"}
                     >
                       <div
                         className='bg-black w-fit text-sm border-2 font-semibold px-2 py-1 rounded-md flex flex-row items-center justify-center gap-1'
