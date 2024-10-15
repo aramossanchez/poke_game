@@ -2,10 +2,8 @@ import { translateTypeToPrimaryColor, translateTypeToSecondaryColor } from "@/se
 import { PokemonMemberType, PokemonMovementInfoType } from "@/types/pokemon.types";
 import { IconInfoCircle, IconInfoCircleFilled, IconSquare, IconSquareCheckFilled, IconX } from "@tabler/icons-react";
 import style from "./modal_select_pokemon_moves.module.css";
-import Image from "next/image"
 import TypeIconComponent from "@/atoms/type_icon.atom";
 import PrimaryButton from "@/atoms/primary_button.atom";
-import CloseModalButton from "@/atoms/close_modal_button.atom";
 import { useState } from "react";
 import ImageForPokemonCard from "@/atoms/image_for_pokemon_card.atom";
 
@@ -19,19 +17,19 @@ export default function ModalSelectPokemonMoves({
   const type1 = typesName?.[0];
   const type2 = typesName?.[1];
 
-  const styleCheckboxAllSelected = (move: PokemonMovementInfoType) =>
+  const allMovesSelected = (move: PokemonMovementInfoType) =>
     pokemon?.selected_moves &&
       pokemon?.selected_moves?.length > 3 &&
       !pokemon?.selected_moves.find((selected) => move.name === selected.name)
-      ? 'opacity-40 pointer-events-none cursor-default'
-      : '';
+      ? true
+      : false;
 
   const [showMoveInformation, setShowMoveInformation] = useState<string | null>();
 
 
   return (
     <article
-      className="flex items-center justify-center w-full h-screen absolute top-0 left-0 z-50 bg-modalBackground"
+      className="flex items-center justify-center w-full h-screen fixed top-0 left-0 z-50 bg-modalBackground"
       onClick={closeModal}
     >
       <div
@@ -91,10 +89,13 @@ export default function ModalSelectPokemonMoves({
                 <>
                   <div
                     key={move.name}
-                    className="flex items-center justify-between"
+                    className="flex items-center justify-between relative"
                   >
+                    {allMovesSelected(move) &&
+                      <hr className="h-1 w-full absolute top-[40%]" style={{ backgroundColor: translateTypeToSecondaryColor(type1) }} />
+                    }
                     <div
-                      className={`${styleCheckboxAllSelected(move)} basis-2/3 flex gap-x-2 cursor-pointer items-center opacity-100`}
+                      className={`${allMovesSelected(move) ? "pointer-events-none cursor-default" : ""} basis-2/3 flex gap-x-2 cursor-pointer items-center opacity-100`}
                       onClick={() => pokemon.selected_moves.find((pokeMove) => pokeMove.name === move.name) ? deleteMoveInPokemon(pokemon.id, move) : addMoveInPokemon(pokemon.id, move)}
                     >
                       {pokemon?.selected_moves.find((pokemonMove) => pokemonMove.name === move.name) ?

@@ -62,7 +62,7 @@ export const translateTypeToSecondaryColor = (type = '') => {
     case 'ground':
       return '#ffffff'
     case 'fairy':
-      return '#ff80c3'
+      return '#fc5db1'
     case 'fighting':
       return '#fff2cc'
     case 'psychic':
