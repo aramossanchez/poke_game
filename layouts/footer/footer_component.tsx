@@ -18,10 +18,7 @@ export default function FooterComponent() {
           <p>|</p>
           <LinkComponent link="/" text="Política de privacidad" />
         </div>
-        <div className="flex items-center gap-2">
-          <p className="text-center">{year} - Aplicación web desarrollada por</p>
-          <LinkComponent link="/" text="Armando Ramos Sánchez" />
-        </div>
+        <p className="text-sm text-center">{year} - Armando Ramos Sánchez</p>
       </article>
     </section>
   )
