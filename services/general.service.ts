@@ -42,6 +42,19 @@ export const addPokemonToTeam = (id: string) => {
   localStorage.setItem("your_team", JSON.stringify(yourTeam));
 }
 
+export const deletePokemonToTeam = (id: string) => {
+
+  if (localStorage.getItem("your_team")) {
+    let yourTeam = JSON.parse(localStorage.getItem("your_team") as string);
+    if (yourTeam.length < 6 && yourTeam.find((pokemon: PokemonMemberType) => pokemon.id === id)) {
+      yourTeam = yourTeam.filter((pokemon: PokemonMemberType) => pokemon.id !== id);
+    }
+  
+    localStorage.setItem("your_team", JSON.stringify(yourTeam));
+
+  }
+}
+
 export const pokemonExistInTeam = (id: string) => {
 
   if (!localStorage.getItem("your_team")) {

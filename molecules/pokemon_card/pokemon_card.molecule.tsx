@@ -3,7 +3,7 @@ import style from './pokemon_card.module.css';
 import { IconMinus, IconPlus } from '@tabler/icons-react';
 import { translateTypeToPrimaryColor } from '@/services/translator.service';
 import Link from 'next/link';
-import { addPokemonToTeam, pokemonExistInTeam } from '@/services/general.service';
+import { addPokemonToTeam, deletePokemonToTeam, pokemonExistInTeam } from '@/services/general.service';
 import { useState } from 'react';
 import ButtonPokemonCard from '../../atoms/button_pokemon_card.atom';
 import TypeIconComponent from '@/atoms/type_icon.atom';
@@ -20,12 +20,23 @@ export default function PokemonCardComponent({ number, pokemon, image, types }: 
     <div className={`${style.card} p-2 w-[150px] h-[245px] bg-primaryColor relative hover:rotate-1 hover:brightness-110 ease-in-out duration-100 flex flex-col gap-y-2`}>
       <div
         className='absolute top-[165px] right-3 z-10 rounded-full'
-        onClick={() => { addPokemonToTeam(number); setAddedInTeam(pokemonExistInTeam(number)) }}
       >
         {!addedInTeam ?
-          <IconPlus size={20} className='text-primaryColor hover:border-white ease-in-out duration-300 cursor-pointer bg-secondaryColor border-2 border-primaryColor rounded-full' />
+          <button>
+            <IconPlus
+              size={20}
+              className='text-primaryColor hover:border-white ease-in-out duration-300 cursor-pointer bg-secondaryColor border-2 border-primaryColor rounded-full'
+              onClick={() => { addPokemonToTeam(number); setAddedInTeam(pokemonExistInTeam(number)) }}
+            />
+          </button>
           :
-          <IconMinus size={20} className='text-primaryColor hover:border-white ease-in-out duration-300 cursor-pointer bg-secondaryColor border-2 border-primaryColor rounded-full' />
+          <button>
+            <IconMinus
+              size={20}
+              className='text-primaryColor hover:border-white ease-in-out duration-300 cursor-pointer bg-secondaryColor border-2 border-primaryColor rounded-full'
+              onClick={() => { deletePokemonToTeam(number); setAddedInTeam(pokemonExistInTeam(number)) }}
+            />
+          </button>
         }
       </div>
       <div className='text-white text-sm font-bold pl-2 w-full bg-primaryColor flex justify-between items-center'>

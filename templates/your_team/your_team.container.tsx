@@ -4,8 +4,10 @@ import LoaderPokeballComponent from "@/atoms/loader/loader.atom";
 import ModalSelectPokemonMoves from "@/molecules/modal_select_pokemon_moves/modal_select_pokemon_moves.molecule";
 import { createPortal } from "react-dom";
 import { PokemonMemberType } from "@/types/pokemon.types";
-import { useEffect } from "react";
 import PokemonInYourTeam from "@/molecules/pokemon_in_your_team/pokemon_in_your_team.molecule";
+import PrimaryButton from "@/atoms/primary_button.atom";
+import { IconArrowLeft, IconArrowRight, IconDeviceFloppy, IconPencil, IconTrash } from "@tabler/icons-react";
+import SecondaryButton from "@/atoms/secondary_button.atom";
 
 export default function YourTeamContainer() {
 
@@ -15,19 +17,11 @@ export default function YourTeamContainer() {
     setPokemonSelectedToModal,
     loading,
     addMoveInPokemon,
-    deleteMoveInPokemon
+    deleteMoveInPokemon,
+    editingYourTeam,
+    setEditingYourTeam,
+    changePokemonOrderInTeam,
   } = useYourTeamContainer();
-
-  useEffect(() => {
-    if (pokemonSelectedToModal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [pokemonSelectedToModal]);
 
   return (
     <LayoutComponent>{loading
@@ -35,14 +29,23 @@ export default function YourTeamContainer() {
       <LoaderPokeballComponent />
       :
       <section className="flex flex-col p-10 gap-y-10">
-        <h2>Your team</h2>
+        <div className="space-y-4">
+          <h2>Your team</h2>
+          <div>
+            <PrimaryButton text={editingYourTeam ? "Save changes" : "Edit team"} icon={editingYourTeam ? <IconDeviceFloppy /> : <IconPencil />} onClick={() => setEditingYourTeam(!editingYourTeam)} />
+          </div>
+        </div>
         <div className="flex items-start gap-4 flex-wrap">
-          {pokemonTeamSelected?.map((pokemon) => {
+          {pokemonTeamSelected?.map((pokemon, index) => {
             return (
               <PokemonInYourTeam
                 key={`${pokemon.name}-pokemon-in-your-team`}
                 pokemonTeamSelected={pokemon}
                 onClick={setPokemonSelectedToModal}
+                editingYourTeam={editingYourTeam}
+                index={index}
+                changePokemonOrderInTeam={changePokemonOrderInTeam}
+                teamSize={pokemonTeamSelected.length}
               />
             )
           })}

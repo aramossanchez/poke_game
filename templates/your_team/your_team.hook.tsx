@@ -8,15 +8,7 @@ export default function useYourTeamContainer() {
   const [pokemonTeamSelected, setPokemonTeamSelected] = useState<PokemonMemberType[]>([]);
   const [pokemonSelectedToModal, setPokemonSelectedToModal] = useState<PokemonMemberType | null >();
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (localStorage.getItem('your_team')) {
-      const team = JSON.parse(localStorage.getItem('your_team') as string);
-      getPoKemonTeamFullData(team);
-    } else {
-      setLoading(false);
-    }
-  }, []);
+  const [editingYourTeam, setEditingYourTeam] = useState<boolean>(false);
 
   const getPoKemonTeamFullData = async (team: PokemonMemberType[]) => {
     let newTeam = [];
@@ -68,12 +60,45 @@ export default function useYourTeamContainer() {
     setPokemonTeamSelected(newPokemonTeamSelected);
   }
 
+  const changePokemonOrderInTeam = (actualIndex: number, futureIndex: number) => {
+    let newPokemonTeamSelected = structuredClone(pokemonTeamSelected);
+    console.log(newPokemonTeamSelected);
+    newPokemonTeamSelected.splice(actualIndex, 1);
+    console.log(newPokemonTeamSelected);
+    newPokemonTeamSelected.splice(futureIndex, 0, pokemonTeamSelected[actualIndex]);
+    console.log(newPokemonTeamSelected);
+    setPokemonTeamSelected(newPokemonTeamSelected);
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem('your_team')) {
+      const team = JSON.parse(localStorage.getItem('your_team') as string);
+      getPoKemonTeamFullData(team);
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (pokemonSelectedToModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [pokemonSelectedToModal]);
+
   return {
     pokemonTeamSelected,
     pokemonSelectedToModal,
     setPokemonSelectedToModal,
     loading,
     addMoveInPokemon,
-    deleteMoveInPokemon
+    deleteMoveInPokemon,
+    editingYourTeam,
+    setEditingYourTeam,
+    changePokemonOrderInTeam
   }
 }
