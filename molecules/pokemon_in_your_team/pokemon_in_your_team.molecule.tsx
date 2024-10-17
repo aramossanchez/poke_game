@@ -14,6 +14,7 @@ interface PokemonInYourTeamProps {
   editingYourTeam: boolean;
   index: number;
   changePokemonOrderInTeam,
+  deletePokemonInTeam,
   teamSize: number;
 }
 
@@ -23,6 +24,7 @@ export default function PokemonInYourTeam({
   editingYourTeam,
   index,
   changePokemonOrderInTeam,
+  deletePokemonInTeam,
   teamSize,
 }: PokemonInYourTeamProps) {
 
@@ -40,7 +42,7 @@ export default function PokemonInYourTeam({
     >
       {editingYourTeam &&
         <div className="absolute top-2 z-10 w-full flex justify-center">
-          <SecondaryButton icon={<IconTrash />} />
+          <SecondaryButton icon={<IconTrash />} onClick={deletePokemonInTeam} />
         </div>
       }
       <div
@@ -48,7 +50,7 @@ export default function PokemonInYourTeam({
       >
         <div
           key={pokemonTeamSelected?.id}
-          className={`${style.card} bg-primaryColor flex flex-col gap-y-4 p-2 text-white font-semibold min-w-[250px]`}
+          className={`${style.card} bg-primaryColor flex flex-col gap-y-4 p-2 text-primaryBackground font-semibold min-w-[250px]`}
         >
           <div className="w-full flex justify-between pl-2">
             <p>#{pokemonTeamSelected?.id}</p>

@@ -28,7 +28,7 @@ export default function SelectedMove({
 
   return (
     <div className="flex items-center gap-x-2 w-full">
-      <span className="border-2 border-white rounded-full min-w-8 min-h-8 flex items-center justify-center">{number}</span>
+      <span className="border-2 border-primaryBackground rounded-full min-w-8 min-h-8 flex items-center justify-center">{number}</span>
       <span>-</span>
       <div className="w-full flex items-center justify-between">
         <span

@@ -25,7 +25,7 @@ export default function PokemonCardComponent({ number, pokemon, image, types }: 
           <button>
             <IconPlus
               size={20}
-              className='text-primaryColor hover:border-white ease-in-out duration-300 cursor-pointer bg-secondaryColor border-2 border-primaryColor rounded-full'
+              className='text-primaryColor hover:border-primaryBackground ease-in-out duration-300 cursor-pointer bg-secondaryColor border-2 border-primaryColor rounded-full'
               onClick={() => { addPokemonToTeam(number); setAddedInTeam(pokemonExistInTeam(number)) }}
             />
           </button>
@@ -33,13 +33,13 @@ export default function PokemonCardComponent({ number, pokemon, image, types }: 
           <button>
             <IconMinus
               size={20}
-              className='text-primaryColor hover:border-white ease-in-out duration-300 cursor-pointer bg-secondaryColor border-2 border-primaryColor rounded-full'
+              className='text-primaryColor hover:border-primaryBackground ease-in-out duration-300 cursor-pointer bg-secondaryColor border-2 border-primaryColor rounded-full'
               onClick={() => { deletePokemonToTeam(number); setAddedInTeam(pokemonExistInTeam(number)) }}
             />
           </button>
         }
       </div>
-      <div className='text-white text-sm font-bold pl-2 w-full bg-primaryColor flex justify-between items-center'>
+      <div className='text-primaryBackground text-sm font-bold pl-2 w-full bg-primaryColor flex justify-between items-center'>
         <span>#{number}</span>
         <span>{pokemon.toLocaleUpperCase()}</span>
       </div>

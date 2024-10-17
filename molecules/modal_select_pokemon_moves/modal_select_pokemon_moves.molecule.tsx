@@ -33,7 +33,7 @@ export default function ModalSelectPokemonMoves({
       onClick={closeModal}
     >
       <div
-        className={`${style.card} col-span-1 w-[500px] min-h-[100px] flex flex-col gap-6 text-white rounded-lg px-6 py-4 bg-primaryColor`}
+        className={`${style.card} col-span-1 w-[500px] min-h-[100px] flex flex-col gap-6 text-primaryBackground rounded-lg px-6 py-4 bg-primaryColor`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-full flex gap-x-2 font-semibold text-2xl justify-between">

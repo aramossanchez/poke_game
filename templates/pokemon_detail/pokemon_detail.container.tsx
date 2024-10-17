@@ -62,7 +62,7 @@ export default function PokemonDetailContainer({ pokemon_id }: { pokemon_id: str
                   alt='Pokemon image'
                   width={50}
                   height={0}
-                  className='border-2 rounded-full bg-white w-[50px] h-[50px]'
+                  className='border-2 rounded-full bg-primaryBackground w-[50px] h-[50px]'
                   style={{ borderColor: translateTypeToSecondaryColor(type1) }}
                 />
                 <hr className='w-[40%] h-[2px] border-0' style={{ backgroundColor: translateTypeToSecondaryColor(type1) }} />

@@ -29,14 +29,14 @@ export const extractValidMovesFromAllMoves = async (moves: {
 export const addPokemonToTeam = (id: string) => {
 
   if (!localStorage.getItem("your_team")) {
-    const newTeam = [{ id: id }];
+    const newTeam = [{ id: id, selected_moves: [] }];
     localStorage.setItem("your_team", JSON.stringify(newTeam));
     return;
   }
 
   const yourTeam = JSON.parse(localStorage.getItem("your_team") as string);
   if (yourTeam.length < 6 && !yourTeam.find((pokemon: PokemonMemberType) => pokemon.id === id)) {
-    yourTeam.push({ id: id });
+    yourTeam.push({ id: id, selected_moves: [] });
   }
 
   localStorage.setItem("your_team", JSON.stringify(yourTeam));

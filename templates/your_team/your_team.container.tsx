@@ -6,7 +6,9 @@ import { createPortal } from "react-dom";
 import { PokemonMemberType } from "@/types/pokemon.types";
 import PokemonInYourTeam from "@/molecules/pokemon_in_your_team/pokemon_in_your_team.molecule";
 import PrimaryButton from "@/atoms/primary_button.atom";
-import { IconDeviceFloppy, IconPencil } from "@tabler/icons-react";
+import { IconDeviceFloppy, IconPencil, IconPencilOff, IconPokeball, IconSwords, IconVs } from "@tabler/icons-react";
+import useLocalStorage from "@/hooks/useLocalStorage.hook";
+import SpecialButton from "@/atoms/special_button.atom";
 
 export default function YourTeamContainer() {
 
@@ -20,7 +22,11 @@ export default function YourTeamContainer() {
     editingYourTeam,
     setEditingYourTeam,
     changePokemonOrderInTeam,
+    deletePokemonOrderTeam,
+    saveYourTeamChanges,
   } = useYourTeamContainer();
+
+  const { getDataFromLocalStorage, setDataFromLocalStorage } = useLocalStorage();
 
   return (
     <LayoutComponent>{loading
@@ -29,9 +35,25 @@ export default function YourTeamContainer() {
       :
       <section className="flex flex-col p-10 gap-y-10">
         <div className="space-y-4">
-          <h2>Your team</h2>
-          <div>
-            <PrimaryButton text={editingYourTeam ? "Save changes" : "Edit team"} icon={editingYourTeam ? <IconDeviceFloppy /> : <IconPencil />} onClick={() => setEditingYourTeam(!editingYourTeam)} />
+          <div className="flex items-center gap-x-4">
+            <h2>Your team</h2>
+            <SpecialButton
+              icon={<IconSwords size={40} />}
+              text="Battle!"
+              onClick={() => { setDataFromLocalStorage("pokemon_for_combat", pokemonTeamSelected) }}
+            />
+          </div>
+          <div className="flex gap-x-4">
+          <PrimaryButton
+            text={editingYourTeam ? "Stop editing" : "Edit team"}
+            icon={editingYourTeam ? <IconPencilOff /> : <IconPencil />}
+            onClick={() => setEditingYourTeam(!editingYourTeam)}
+          />
+          <PrimaryButton
+            text="Save changes"
+            icon={<IconDeviceFloppy />}
+            onClick={() => saveYourTeamChanges()}
+          />
           </div>
         </div>
         <div className="flex items-start gap-4 flex-wrap">
@@ -44,6 +66,7 @@ export default function YourTeamContainer() {
                 editingYourTeam={editingYourTeam}
                 index={index}
                 changePokemonOrderInTeam={changePokemonOrderInTeam}
+                deletePokemonInTeam={() => deletePokemonOrderTeam(index)}
                 teamSize={pokemonTeamSelected.length}
               />
             )

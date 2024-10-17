@@ -1,3 +1,4 @@
+import useLocalStorage from "@/hooks/useLocalStorage.hook";
 import { extractValidMovesFromAllMoves } from "@/services/general.service";
 import { getPokemonDataById } from "@/services/pokemon.service";
 import { PokemonMemberType, PokemonMovementInfoType } from "@/types/pokemon.types";
@@ -5,6 +6,7 @@ import { useEffect, useState } from "react"
 
 export default function useYourTeamContainer() {
 
+  const { getDataFromLocalStorage, setDataFromLocalStorage } = useLocalStorage();
   const [pokemonTeamSelected, setPokemonTeamSelected] = useState<PokemonMemberType[]>([]);
   const [pokemonSelectedToModal, setPokemonSelectedToModal] = useState<PokemonMemberType | null >();
   const [loading, setLoading] = useState(true);
@@ -22,7 +24,7 @@ export default function useYourTeamContainer() {
           types: pokemonData.types,
           stats: pokemonData.stats,
           moves: pokemonMoves,
-          selected_moves: [],
+          selected_moves: pokemon.selected_moves,
           sprites: pokemonData.sprites
         }
         newTeam.push(pokemonForTeam);
@@ -62,16 +64,28 @@ export default function useYourTeamContainer() {
 
   const changePokemonOrderInTeam = (actualIndex: number, futureIndex: number) => {
     let newPokemonTeamSelected = structuredClone(pokemonTeamSelected);
-    console.log(newPokemonTeamSelected);
     newPokemonTeamSelected.splice(actualIndex, 1);
-    console.log(newPokemonTeamSelected);
     newPokemonTeamSelected.splice(futureIndex, 0, pokemonTeamSelected[actualIndex]);
-    console.log(newPokemonTeamSelected);
     setPokemonTeamSelected(newPokemonTeamSelected);
   }
 
+  const deletePokemonOrderTeam = (actualIndex: number) => {
+    let newPokemonTeamSelected = structuredClone(pokemonTeamSelected);
+    console.log(newPokemonTeamSelected);
+    newPokemonTeamSelected.splice(actualIndex, 1);
+    setPokemonTeamSelected(newPokemonTeamSelected);
+  }
+
+  const saveYourTeamChanges = () => {
+    const selectedTeam = pokemonTeamSelected.map((pokemon: PokemonMemberType) => {
+      return {id: pokemon.id, selected_moves: pokemon.selected_moves};
+    });
+    setDataFromLocalStorage("your_team", selectedTeam);
+  }
+
   useEffect(() => {
-    if (localStorage.getItem('your_team')) {
+    const selectedTeam = getDataFromLocalStorage('your_team');
+    if (selectedTeam) {
       const team = JSON.parse(localStorage.getItem('your_team') as string);
       getPoKemonTeamFullData(team);
     } else {
@@ -99,6 +113,8 @@ export default function useYourTeamContainer() {
     deleteMoveInPokemon,
     editingYourTeam,
     setEditingYourTeam,
-    changePokemonOrderInTeam
+    changePokemonOrderInTeam,
+    deletePokemonOrderTeam,
+    saveYourTeamChanges
   }
 }
