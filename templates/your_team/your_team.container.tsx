@@ -6,8 +6,7 @@ import { createPortal } from "react-dom";
 import { PokemonMemberType } from "@/types/pokemon.types";
 import PokemonInYourTeam from "@/molecules/pokemon_in_your_team/pokemon_in_your_team.molecule";
 import PrimaryButton from "@/atoms/primary_button.atom";
-import { IconArrowLeft, IconArrowRight, IconDeviceFloppy, IconPencil, IconTrash } from "@tabler/icons-react";
-import SecondaryButton from "@/atoms/secondary_button.atom";
+import { IconDeviceFloppy, IconPencil } from "@tabler/icons-react";
 
 export default function YourTeamContainer() {
 

@@ -1,3 +1,4 @@
+"use client";
 interface PrimaryButtonProps {
   text: string,
   icon?: JSX.Element;
@@ -7,7 +8,7 @@ interface PrimaryButtonProps {
 export default function PrimaryButton({
   text = 'Button',
   icon,
-  onClick
+  onClick = () => {},
 }: PrimaryButtonProps) {
 
   const styleWithIcon = icon ? 'hover:gap-4 hover:px-3' : ''

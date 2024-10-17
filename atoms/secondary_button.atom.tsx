@@ -1,7 +1,8 @@
+"use client";
 interface SecondaryButtonProps {
   text?: string,
   icon?: JSX.Element;
-  onClick?;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function SecondaryButton({
