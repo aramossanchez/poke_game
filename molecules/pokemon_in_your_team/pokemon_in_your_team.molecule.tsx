@@ -35,6 +35,7 @@ export default function PokemonInYourTeam({
   const styleEditing = editingYourTeam ? "brightness-[0.2] opacity-90 pointer-events-none" : "";
   const styleImpossibleToMovePokemonLeft = index === 0  ? "pointer-events-none opacity-0" : ""
   const styleImpossibleToMovePokemonRight = index === (teamSize - 1) ? "pointer-events-none opacity-0" : ""
+  const styleButtonsEditing = pokemonTeamSelected?.selected_moves?.length === 4 ? "top-[43.6%]" : "top-[50%]"
 
   return (
     <article
@@ -106,14 +107,14 @@ export default function PokemonInYourTeam({
           </div>
         </div>
         {pokemonTeamSelected?.selected_moves?.length === 4 &&
-          <div className={`${style.animation_notification} rounded-xl shadow-lg mt-2 w-full flex justify-center items-center py-4 gap-x-2 text-primaryColor bg-colorSuccess`}>
+          <div className="rounded-xl shadow-lg mt-2 w-full flex justify-center items-center py-4 gap-x-2 text-primaryColor bg-colorSuccess">
             <span className="w-fit rounded-lg">Ready for battle</span>
             <IconCircleDashedCheck />
           </div>
         }
       </div>
       {editingYourTeam &&
-        <div className="w-[95%] absolute flex justify-between left-[2.5%] top-[50%]">
+        <div className={`${styleButtonsEditing} w-[95%] absolute flex justify-between left-[2.5%]`}>
           <div className={`${styleImpossibleToMovePokemonLeft}`}>
             <SecondaryButton icon={<IconArrowLeft />} onClick={() => changePokemonOrderInTeam(index, (index - 1))} />
           </div>

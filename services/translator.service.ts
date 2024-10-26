@@ -50,7 +50,7 @@ export const translateTypeToSecondaryColor = (type = '') => {
     case 'poison':
       return '#616161'
     case 'flying':
-      return '#'
+      return '#363636'
     case 'water':
       return '#2986cc'
     case 'bug':

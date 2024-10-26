@@ -44,16 +44,18 @@ export default function YourTeamContainer() {
             />
           </div>
           <div className="flex gap-x-4">
-          <PrimaryButton
-            text={editingYourTeam ? "Stop editing" : "Edit team"}
-            icon={editingYourTeam ? <IconPencilOff /> : <IconPencil />}
-            onClick={() => setEditingYourTeam(!editingYourTeam)}
-          />
-          <PrimaryButton
-            text="Save changes"
-            icon={<IconDeviceFloppy />}
-            onClick={() => saveYourTeamChanges()}
-          />
+            <PrimaryButton
+              text={editingYourTeam ? "Stop editing" : "Edit team"}
+              icon={editingYourTeam ? <IconPencilOff /> : <IconPencil />}
+              onClick={() => setEditingYourTeam(!editingYourTeam)}
+            />
+            {!editingYourTeam &&
+              <PrimaryButton
+                text="Save changes"
+                icon={<IconDeviceFloppy />}
+                onClick={() => saveYourTeamChanges()}
+              />
+            }
           </div>
         </div>
         <div className="flex items-start gap-4 flex-wrap">

@@ -19,8 +19,14 @@ export default function PresentationLanding() {
           <h2 className="text-center">¡Conviértete en el mejor entrenador!</h2>
           <h5 className="text-center">Conoce todos los datos de cada Pokémon, selecciona tu equipo, entréntate a los rivales más duros y lleva tus habilidades como entrenador Pokémon al siguiente nivel.</h5>
           <div className="flex justify-center gap-6 md:flex-row flex-col">
-            <PrimaryButton text="Monta tu equipo" icon={<IconPokeball />} />
-            <SecondaryButton text="Explora la Pokédex" icon={<IconArrowRight />} />
+            <PrimaryButton
+              text="Monta tu equipo"
+              icon={<IconPokeball />}
+            />
+            <SecondaryButton
+              text="Explora la Pokédex"
+              icon={<IconArrowRight />}
+            />
           </div>
         </article>
       </div>
