@@ -14,10 +14,7 @@ export default function usePokemonDetailComponent(pokemon_id: string) {
   const [counter, setCounter] = useState(0);
   const [loading, setLoading] = useState(true);
   const [spriteNormalVersion, setSpriteNormalVersion] = useState<string[]>([]);
-  const [counterSpriteNormalVersion, setCounterSpriteNormalVersion] = useState(1);
   const [spriteShinyVersion, setSpriteShinyVersion] = useState<string[]>([]);
-  const [counterSpriteShinyVersion, setCounterSpriteShinyVersion] = useState(1);
-  const [openedInfo, setOpenedInfo] = useState(false);
 
   useEffect(() => {
     getPokemonData(pokemon_id);
@@ -63,29 +60,6 @@ export default function usePokemonDetailComponent(pokemon_id: string) {
       setLoading(false)
     }
   }
-
-  const useScreenWidth = () => {
-    const [isScreenSmall, setIsScreenSmall] = useState(false);
-  
-    useEffect(() => {
-      const checkScreenWidth = () => {
-        setIsScreenSmall(window.innerWidth < 1280);
-      };
-  
-      // Check screen width on mount
-      checkScreenWidth();
-  
-      // Add event listener
-      window.addEventListener('resize', checkScreenWidth);
-  
-      // Clean up event listener on unmount
-      return () => {
-        window.removeEventListener('resize', checkScreenWidth);
-      };
-    }, []);
-  
-    return isScreenSmall;
-  };
   
   return {
     loading,
@@ -97,13 +71,6 @@ export default function usePokemonDetailComponent(pokemon_id: string) {
     setCounter,
     counter,
     spriteNormalVersion,
-    setCounterSpriteNormalVersion,
-    counterSpriteNormalVersion,
     spriteShinyVersion,
-    setCounterSpriteShinyVersion,
-    counterSpriteShinyVersion,
-    useScreenWidth,
-    setOpenedInfo,
-    openedInfo
   }
 }
